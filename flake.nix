@@ -35,6 +35,23 @@
                 ${pkgs.golangci-lint}/bin/golangci-lint run --sort-results --out-format tab --config ${nix.lib.golangci-config-file} --fix --issues-exit-code 0 ./...
               '';
             }
+            {
+              name = "publish";
+              command = ''
+                # [[ $(git status --porcelain) != "" ]] && echo "Please commit or discard your latest changes" && exit 1
+                [[ $# -eq 0 ]] && echo "Please provide a tag as the first parameter" && exit 1
+                TAG=$1
+
+                ${nix.lib.cd_root}
+
+                npm version $TAG --allow-same-version=true --git-tag-version=false
+                git add package.json package-lock.json
+                git commit -m "Update package to version $TAG"
+                git tag -a $TAG -m ""
+                npm publish --access public
+                echo "Please push the new git commits and tag to the remote"
+              '';
+            }
           ];
         };
       });
