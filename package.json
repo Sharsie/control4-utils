@@ -1,0 +1,11 @@
+{
+  "name": "@c3c/control4-utils",
+  "version": "0.0.1",
+  "description": "Control4 utils",
+  "repository": {
+    "type": "git",
+    "url": "https://git.c3c.cz/arnie/control4-utils.git"
+  },
+  "author": "C3C Arnie",
+  "license": "GPL-3.0-only"
+}
