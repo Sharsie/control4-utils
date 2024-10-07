@@ -38,17 +38,22 @@
             {
               name = "publish";
               command = ''
-                # [[ $(git status --porcelain) != "" ]] && echo "Please commit or discard your latest changes" && exit 1
                 [[ $# -eq 0 ]] && echo "Please provide a tag as the first parameter" && exit 1
                 TAG=$1
 
+                OTP=''${2:-}
+
                 ${nix.lib.cd_root}
 
+                [[ $(git tag -l "$TAG") ]] && echo "Tag already exists" && exit 1
+
                 npm version $TAG --allow-same-version=true --git-tag-version=false
-                git add package.json package-lock.json
+                git add package.json
                 git commit -m "Update package to version $TAG"
                 git tag -a $TAG -m ""
-                npm publish --access public
+                [[ $OTP == "" ]] && npm publish --access public
+                [[ $OTP != "" ]] && npm publish --access public --otp $OTP
+
                 echo "Please push the new git commits and tag to the remote"
               '';
             }
