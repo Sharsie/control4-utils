@@ -1,0 +1,878 @@
+---@alias GROUP_ADDRESS_NAME
+---|GROUP_ADDRESS_NAME_Dimmer
+---|GROUP_ADDRESS_NAME_Heat
+---|GROUP_ADDRESS_NAME_VENT
+---|GROUP_ADDRESS_NAME_Other
+---|GROUP_ADDRESS_NAME_Scene
+---|GROUP_ADDRESS_NAME_Switch
+
+---@alias GROUP_ADDRESS_NAME_Dimmer
+--- Hallway Primary
+---|"Dimmer LF Hallway"
+--- Hallway Primary
+---|"Dimmer LF Hallway FB"
+--- Hallway Primary
+---|"Dimmer LF Hallway Dimmer"
+---|"Dimmer LF Hallway Color"
+---|"Dimmer LF Hallway Color FB"
+---|"Dimmer LF Hallway Color Dimmer"
+--- Bathroom Primary
+---|"Dimmer LF Bathroom Primary"
+--- Bathroom Primary
+---|"Dimmer LF Bathroom Primary FB"
+--- Bathroom Primary
+---|"Dimmer LF Bathroom Primary Dimmer"
+---|"Dimmer LF Bathroom Primary Color"
+---|"Dimmer LF Bathroom Primary Color FB"
+---|"Dimmer LF Bathroom Primary Color Dimmer"
+--- Bathroom Ambient
+--- HAS UNKNOWN DPT
+---|"Dimmer LF Bathroom Ambient"
+--- Bathroom Ambient
+--- HAS UNKNOWN DPT
+---|"Dimmer LF Bathroom Ambient FB"
+--- Bathroom Ambient
+---|"Dimmer LF Bathroom Ambient Dimmer"
+--- HAS UNKNOWN DPT
+---|"Dimmer LF Bathroom Ambient HSV"
+--- HAS UNKNOWN DPT
+---|"Dimmer LF Bathroom Ambient HSV FB"
+--- HAS UNKNOWN DPT
+---|"Dimmer LF Bathroom Ambient Hue Dimming"
+--- HAS UNKNOWN DPT
+---|"Dimmer LF Bathroom Ambient Saturation Dimming"
+--- Bathroom Vanity
+---|"Dimmer LF Bathroom Vanity"
+--- Bathroom Vanity
+---|"Dimmer LF Bathroom Vanity FB"
+--- Bathroom Vanity
+---|"Dimmer LF Bathroom Vanity Dimmer"
+---|"Dimmer LF Bathroom Vanity Color"
+---|"Dimmer LF Bathroom Vanity Color FB"
+---|"Dimmer LF Bathroom Vanity Color Dimmer"
+--- Laundry Primary
+---|"Dimmer LF Laundry Primary"
+--- Laundry Primary
+---|"Dimmer LF Laundry Primary FB"
+--- Laundry Primary
+---|"Dimmer LF Laundry Primary Dimmer"
+---|"Dimmer LF Laundry Color"
+---|"Dimmer LF Laundry Color FB"
+---|"Dimmer LF Laundry Color Dimmer"
+--- Bedroom 1 Primary
+---|"Dimmer LF Bedroom 1 Primary"
+--- Bedroom 1 Primary
+---|"Dimmer LF Bedroom 1 Primary FB"
+--- Bedroom 1 Primary
+---|"Dimmer LF Bedroom 1 Primary Dimmer"
+---|"Dimmer LF Bedroom 1 Primary Color"
+---|"Dimmer LF Bedroom 1 Primary Color FB"
+---|"Dimmer LF Bedroom 1 Primary Color Dimmer"
+--- Bedroom 1 Ambient
+--- HAS UNKNOWN DPT
+---|"Dimmer LF Bedroom 1 Ambient"
+--- Bedroom 1 Ambient
+--- HAS UNKNOWN DPT
+---|"Dimmer LF Bedroom 1 Ambient FB"
+--- Bedroom 1 Ambient
+---|"Dimmer LF Bedroom 1 Ambient Dimmer"
+--- HAS UNKNOWN DPT
+---|"Dimmer LF Bedroom 1 Ambient HSV"
+--- HAS UNKNOWN DPT
+---|"Dimmer LF Bedroom 1 Ambient HSV FB"
+--- HAS UNKNOWN DPT
+---|"Dimmer LF Bedroom 1 Ambient Hue Dimming"
+--- HAS UNKNOWN DPT
+---|"Dimmer LF Bedroom 1 Ambient Saturation Dimming"
+--- Study Primary
+---|"Dimmer LF Study Primary"
+--- Study Primary
+---|"Dimmer LF Study Primary FB"
+--- Study Primary
+---|"Dimmer LF Study Primary Dimmer"
+---|"Dimmer LF Study Color"
+---|"Dimmer LF Study Color FB"
+---|"Dimmer LF Study Color Dimmer"
+--- Study Ambient
+--- HAS UNKNOWN DPT
+---|"Dimmer LF Study Ambient"
+--- Study Ambient
+--- HAS UNKNOWN DPT
+---|"Dimmer LF Study Ambient FB"
+--- Study Ambient
+---|"Dimmer LF Study Ambient Dimmer"
+--- HAS UNKNOWN DPT
+---|"Dimmer LF Study Ambient HSV"
+--- HAS UNKNOWN DPT
+---|"Dimmer LF Study Ambient HSV FB"
+--- HAS UNKNOWN DPT
+---|"Dimmer LF Study Ambient Hue Dimming"
+--- HAS UNKNOWN DPT
+---|"Dimmer LF Study Ambient Saturation Dimming"
+--- Bedroom 2 Primary
+---|"Dimmer LF Bedroom 2 Primary"
+--- Bedroom 2 Primary
+---|"Dimmer LF Bedroom 2 Primary FB"
+--- Bedroom 2 Primary
+---|"Dimmer LF Bedroom 2 Primary Dimmer"
+---|"Dimmer LF Bedroom 2 Primary Color"
+---|"Dimmer LF Bedroom 2 Primary Color FB"
+---|"Dimmer LF Bedroom 2 Primary Color Dimmer"
+--- Bedroom 2 Ambient
+--- HAS UNKNOWN DPT
+---|"Dimmer LF Bedroom 2 Ambient"
+--- Bedroom 2 Ambient
+--- HAS UNKNOWN DPT
+---|"Dimmer LF Bedroom 2 Ambient FB"
+--- Bedroom 2 Ambient
+---|"Dimmer LF Bedroom 2 Ambient Dimmer"
+--- HAS UNKNOWN DPT
+---|"Dimmer LF Bedroom 2 Ambient HSV"
+--- HAS UNKNOWN DPT
+---|"Dimmer LF Bedroom 2 Ambient HSV FB"
+--- HAS UNKNOWN DPT
+---|"Dimmer LF Bedroom 2 Ambient Hue Dimming"
+--- HAS UNKNOWN DPT
+---|"Dimmer LF Bedroom 2 Ambient Saturation Dimming"
+--- Utility room Primary
+---|"Dimmer LF Utility"
+--- Utility room Primary
+---|"Dimmer LF Utility FB"
+--- Utility room Primary
+---|"Dimmer LF Utility Dimmer"
+---|"Dimmer LF Utility Color"
+---|"Dimmer LF Utility Color FB"
+---|"Dimmer LF Utility Color Dimmer"
+--- Hallway Entry
+---|"Dimmer UF Hallway"
+--- Hallway Entry
+---|"Dimmer UF Hallway FB"
+--- Hallway Entry
+---|"Dimmer UF Hallway Dimming"
+--- Hallway Entry
+---|"Dimmer UF Hallway Color"
+--- Hallway Entry
+---|"Dimmer UF Hallway Color FB"
+--- Hallway Entry
+---|"Dimmer UF Hallway Color Dimming"
+--- Bathroom Primary
+---|"Dimmer UF Bathroom Primary"
+--- Bathroom Primary
+---|"Dimmer UF Bathroom Primary FB"
+--- Bathroom Primary
+---|"Dimmer UF Bathroom Primary Dimming"
+---|"Dimmer UF Bathroom Primary Color"
+---|"Dimmer UF Bathroom Primary Color FB"
+---|"Dimmer UF Bathroom Primary Color Dimming"
+--- Bathroom Ambient
+---|"Dimmer UF Bathroom Ambient"
+--- Bathroom Ambient
+---|"Dimmer UF Bathroom Ambient FB"
+--- Bathroom Ambient
+---|"Dimmer UF Bathroom Ambient Dimming"
+--- HAS UNKNOWN DPT
+---|"Dimmer UF Bathroom Ambient HSV"
+--- HAS UNKNOWN DPT
+---|"Dimmer UF Bathroom Ambient HSV FB"
+---|"Dimmer UF Bathroom Ambient Hue Dimming"
+---|"Dimmer UF Bathroom Ambient Saturation Dimming"
+--- Bathroom Vanity
+---|"Dimmer UF Bathroom Vanity"
+--- Bathroom Vanity
+---|"Dimmer UF Bathroom Vanity FB"
+--- Bathroom Vanity
+---|"Dimmer UF Bathroom Vanity Dimming"
+---|"Dimmer UF Bathroom Vanity Color"
+---|"Dimmer UF Bathroom Vanity Color FB"
+---|"Dimmer UF Bathroom Vanity Color Dimming"
+--- Bedroom Primary
+---|"Dimmer UF Bedroom Primary"
+--- Bedroom Primary
+---|"Dimmer UF Bedroom Primary FB"
+--- Bedroom Primary
+---|"Dimmer UF Bedroom Primary Dimming"
+---|"Dimmer UF Bedroom Primary Color"
+---|"Dimmer UF Bedroom Primary Color FB"
+---|"Dimmer UF Bedroom Primary Color Dimming"
+--- Bedroom Ambient
+--- HAS UNKNOWN DPT
+---|"Dimmer UF Bedroom Ambient"
+--- Bedroom Ambient
+--- HAS UNKNOWN DPT
+---|"Dimmer UF Bedroom Ambient FB"
+--- Bedroom Ambient
+---|"Dimmer UF Bedroom Ambient Dimming"
+--- HAS UNKNOWN DPT
+---|"Dimmer UF Bedroom Ambient HSV"
+--- HAS UNKNOWN DPT
+---|"Dimmer UF Bedroom Ambient HSV FB"
+--- HAS UNKNOWN DPT
+---|"Dimmer UF Bedroom Ambient Hue Dimming"
+--- HAS UNKNOWN DPT
+---|"Dimmer UF Bedroom Ambient Saturation Dimming"
+--- Bedroom Closet
+---|"Dimmer UF Closet"
+--- Bedroom Closet
+---|"Dimmer UF Closet FB"
+--- Bedroom Closet
+---|"Dimmer UF Closet Dimming"
+---|"Dimmer UF Closet Color"
+---|"Dimmer UF Closet Color FB"
+---|"Dimmer UF Closet Color Dimming"
+--- Living room Primary
+---|"Dimmer UF Living room Primary"
+--- Living room Primary
+---|"Dimmer UF Living room Primary FB"
+--- Living room Primary
+---|"Dimmer UF Living room Primary Dimming"
+--- Living room Primary
+---|"Dimmer UF Living room Primary Color"
+--- Living room Primary
+---|"Dimmer UF Living room Primary Color FB"
+--- Living room Primary
+---|"Dimmer UF Living room Primary Color Dimming"
+--- Living room Ambient
+---|"Dimmer UF Living room Ambient"
+--- Living room Ambient
+---|"Dimmer UF Living room Ambient FB"
+--- Living room Ambient
+---|"Dimmer UF Living room Ambient Dimming"
+--- HAS UNKNOWN DPT
+---|"Dimmer UF Living room Ambient HSV"
+--- HAS UNKNOWN DPT
+---|"Dimmer UF Living room Ambient HSV FB"
+--- Living room Ambient
+---|"Dimmer UF Living room Ambient Hue Dimming"
+--- Living room Ambient
+---|"Dimmer UF Living room Ambient Saturation Dimming"
+--- Office Primary
+---|"Dimmer UF Office Primary"
+--- Office Primary
+---|"Dimmer UF Office Primary FB"
+--- Office Primary
+---|"Dimmer UF Office Primary Dimming"
+---|"Dimmer UF Office Color"
+---|"Dimmer UF Office Color FB"
+---|"Dimmer UF Office Color Dimming"
+--- Dining room Primary
+---|"Dimmer UF Dining room"
+--- Dining room Primary
+---|"Dimmer UF Dining room FB"
+--- Dining room Primary
+---|"Dimmer UF Dining room Dimming"
+---|"Dimmer UF Dining Room Color"
+---|"Dimmer UF Dining Room Color FB"
+---|"Dimmer UF Dining Room Color Dimming"
+--- Kitchen Primary
+---|"Dimmer UF Kitchen Primary"
+--- Kitchen Primary
+---|"Dimmer UF Kitchen Primary FB"
+--- Kitchen Primary
+---|"Dimmer UF Kitchen Primary Dimming"
+---|"Dimmer UF Kitchen Primary Color"
+---|"Dimmer UF Kitchen Primary Color FB"
+---|"Dimmer UF Kitchen Primary Color Dimming"
+--- Kitchen Ambient
+--- HAS UNKNOWN DPT
+---|"Dimmer UF Kitchen Ambient"
+--- Kitchen Ambient
+--- HAS UNKNOWN DPT
+---|"Dimmer UF Kitchen Ambient FB"
+--- Kitchen Ambient
+--- HAS UNKNOWN DPT
+---|"Dimmer UF Kitchen Ambient Dimming"
+--- HAS UNKNOWN DPT
+---|"Dimmer UF Kitchen Ambient HSV"
+--- HAS UNKNOWN DPT
+---|"Dimmer UF Kitchen Ambient HSV FB"
+--- HAS UNKNOWN DPT
+---|"Dimmer UF Kitchen Ambient Hue Dimming"
+--- HAS UNKNOWN DPT
+---|"Dimmer UF Kitchen Ambient Saturation Dimming"
+--- Kitchen Counter
+---|"Dimmer UF Kitchen Counter"
+--- Kitchen Counter
+---|"Dimmer UF Kitchen Counter FB"
+--- Kitchen Counter
+---|"Dimmer UF Kitchen Counter Dimming"
+---|"Dimmer UF Kitchen Counter Color"
+---|"Dimmer UF Kitchen Counter Color FB"
+---|"Dimmer UF Kitchen Counter Color Dimming"
+--- Kitchen Counter
+---|"Dimmer UF Pantry"
+--- Kitchen Counter
+---|"Dimmer UF Pantry FB"
+--- Kitchen Counter
+---|"Dimmer UF Pantry Dimming"
+---|"Dimmer UF Pantry Color"
+---|"Dimmer UF Pantry Color FB"
+---|"Dimmer UF Pantry Color Dimming"
+--- Staircase Primary
+--- HAS UNKNOWN DPT
+---|"Dimmer Staircase Tree Dimming"
+--- Staircase Primary
+--- HAS UNKNOWN DPT
+---|"Dimmer Staircase Tree Value"
+--- Staircase Primary
+--- HAS UNKNOWN DPT
+---|"Dimmer Staircase Tree Value Feedback"
+--- Staircase Primary
+--- HAS UNKNOWN DPT
+---|"Dimmer Staircase handrail Swtich"
+--- Staircase Primary
+--- HAS UNKNOWN DPT
+---|"Dimmer Staircase handrail Value"
+--- Staircase Primary
+--- HAS UNKNOWN DPT
+---|"Dimmer Staircase handrail Value Feedback"
+--- Staircase Primary
+--- HAS UNKNOWN DPT
+---|"Dimmer Staircase handrail bottom Dimming"
+--- Staircase Primary
+--- HAS UNKNOWN DPT
+---|"Dimmer Staircase handrail bottom Value"
+--- Staircase Primary
+--- HAS UNKNOWN DPT
+---|"Dimmer Staircase handrail bottom Value Feedback"
+--- 20_Garden Terrace
+--- HAS UNKNOWN DPT
+---|"Dimmer EXT Terrace Dimming"
+--- 20_Garden Terrace
+--- HAS UNKNOWN DPT
+---|"Dimmer EXT Terrace Value"
+--- 20_Garden Terrace
+--- HAS UNKNOWN DPT
+---|"Dimmer EXT Terrace Value Feedback"
+--- 20_Exterior Entrance
+--- HAS UNKNOWN DPT
+---|"Dimmer EXT Entrance Value Feedback"
+--- 20_Exterior Entrance
+--- HAS UNKNOWN DPT
+---|"Dimmer EXT Entrance Dimming"
+--- 20_Exterior Entrance
+--- HAS UNKNOWN DPT
+---|"Dimmer EXT Entrance Value"
+--- Parking place Primary
+--- HAS UNKNOWN DPT
+---|"Dimmer Parking place Dimming"
+--- Parking place Primary
+--- HAS UNKNOWN DPT
+---|"Dimmer Parking place Value"
+--- Parking place Primary
+--- HAS UNKNOWN DPT
+---|"Dimmer Parking place Value Feedback"
+
+---@alias GROUP_ADDRESS_NAME_Heat
+---|"Heat LF Hallway Temperature FB"
+---|"Heat LF Bathroom Temperature FB"
+---|"Heat LF Bathroom Ladder boost"
+---|"Heat LF Bathroom Ladder boost FB"
+--- HAS UNKNOWN DPT
+---|"Heat LF Laundry Temperature FB"
+---|"Heat LF Bedroom 1 Temperature FB"
+---|"Heat LF Study Temperature FB"
+---|"Heat LF Bedroom 2 Temperature FB"
+---|"Heat LF Technical Room Temperature FB"
+---|"Heat UF Hallway Temperature FB"
+---|"Heat UF Bathroom Temperature FB"
+---|"Heat UF Bathroom Ladder boost"
+---|"Heat UF Bathroom Ladder boost FB"
+---|"Heat UF Bedroom Temperature FB"
+---|"Heat UF Living Room Temperature FB"
+---|"Heat UF Kitchen Temperature FB"
+
+---@alias GROUP_ADDRESS_NAME_VENT
+--- HAS UNKNOWN DPT
+---|"VENT LF PLACEHOLDER Hallway"
+---|"VENT LF Hallway Valve IN"
+---|"VENT LF Hallway Valve IN FB"
+---|"VENT LF Bathroom CO2 FB"
+---|"VENT LF Bathroom Humidity FB"
+---|"VENT LF Bathroom boost"
+---|"VENT LF Bathroom boost FB"
+---|"VENT LF Bathroom Valve IN"
+---|"VENT LF Bathroom Valve IN FB"
+---|"VENT LF Bathroom Valve OUT"
+---|"VENT LF Bathroom Valve OUT FB"
+--- HAS UNKNOWN DPT
+---|"VENT LF PLACEHOLDER Laundry"
+---|"VENT LF Bedroom 1 CO2 FB"
+---|"VENT LF Bedroom 1 Humidity FB"
+---|"VENT LF Bedroom 1 Valve IN"
+---|"VENT LF Bedroom 1 Valve IN FB"
+---|"VENT LF Study CO2 FB"
+---|"VENT LF Study Humidity FB"
+---|"VENT LF Study Valve IN"
+---|"VENT LF Study Valve IN FB"
+---|"VENT LF Study Valve IN Lock"
+---|"VENT LF Bedroom 2 CO2 FB"
+---|"VENT LF Bedroom 2 Humidity FB"
+---|"VENT LF Bedroom 2 Valve IN"
+---|"VENT LF Bedroom 2 Valve IN FB"
+--- HAS UNKNOWN DPT
+---|"VENT LF Technical Room CO2 FB"
+---|"VENT LF Technical Room Humidity FB"
+---|"VENT LF Box Valve OUT"
+---|"VENT LF Box Valve OUT FB"
+---|"VENT LF Box Valve OUT Lock"
+--- HAS UNKNOWN DPT
+---|"VENT UF PLACEHOLDER Hallway"
+---|"VENT UF Bathroom CO2 FB"
+---|"VENT UF Bathroom Humidity FB"
+---|"VENT UF Bathroom boost"
+---|"VENT UF Bathroom boost FB"
+---|"VENT UF Bathroom Valve IN"
+---|"VENT UF Bathroom Valve IN FB"
+---|"VENT UF Bathroom Valve IN Lock"
+--- HAS UNKNOWN DPT
+---|"VENT UF PLACEHOLDER Bedroom"
+---|"VENT UF Bedroom Valve IN"
+---|"VENT UF Bedroom Valve IN FB"
+---|"VENT UF Bedroom Valve IN Lock"
+---|"VENT UF Bedroom CO2 FB"
+---|"VENT UF Bedroom Humidity FB"
+---|"VENT UF Living Room CO2 FB"
+---|"VENT UF Living Room Humidity FB"
+---|"VENT UF Living Room Valve IN"
+---|"VENT UF Living Room Valve IN FB"
+--- HAS UNKNOWN DPT
+---|"VENT UF PLACEHOLDER Office"
+---|"VENT UF Office Valve IN"
+---|"VENT UF Office Valve IN FB"
+---|"VENT UF Bathroom Valve OUT"
+---|"VENT UF Bathroom Valve OUT FB"
+---|"VENT UF Bathroom Valve OUT Lock"
+--- HAS UNKNOWN DPT
+---|"VENT UF PLACEHOLDER Dining Room"
+--- HAS UNKNOWN DPT
+---|"VENT UF PLACEHOLDER Kitchen"
+---|"VENT UF Kitchen Valve OUT"
+---|"VENT UF Kitchen Valve OUT FB"
+---|"VENT UF Kitchen CO2 FB"
+---|"VENT UF Kitchen Humidity FB"
+---|"VENT UF Kitchen TVOC FB"
+---|"VENT UF Kitchen boost"
+---|"VENT UF Kitchen boost FB"
+---|"VENT UF Closet+Hallway Valve OUT"
+---|"VENT UF Closet+Hallway Valve OUT FB"
+---|"VENT UF Closet+Hallway Valve OUT Lock"
+---|"VENT Airflow"
+---|"VENT Standby FB"
+---|"VENT Temperature: Supply"
+---|"VENT Temperature: Outdoor"
+---|"VENT Temperature: Extract"
+---|"VENT Temperature: Exhaust"
+---|"VENT Humidity: Supply"
+---|"VENT Humidity: Outdoor"
+---|"VENT Humidity: Extract"
+---|"VENT Humidity: Exhaust"
+---|"VENT Filter: Remaining (h)"
+---|"VENT Filter: Replace"
+---|"VENT Boost"
+---|"VENT Boost FB"
+---|"VENT Auto mode"
+---|"VENT Auto mode FB"
+---|"VENT Preset"
+---|"VENT Preset FB"
+---|"VENT Preset Away"
+---|"VENT Preset Away FB"
+---|"VENT Away function"
+---|"VENT Away function FB"
+---|"VENT Temperature profile mode"
+---|"VENT Temperature profile mode FB"
+---|"VENT Temperature profile"
+---|"VENT Temperature profile FB"
+---|"VENT Boost Time"
+---|"VENT Boost Time FB"
+---|"VENT External setpoint"
+---|"VENT External setpoint FB"
+---|"VENT Error"
+---|"VENT Status"
+
+---@alias GROUP_ADDRESS_NAME_Other
+---|"Entry"
+---|"Exit"
+---|"Present"
+---|"UF Bathroom Exit"
+---|"LF Bathroom Exit"
+--- Day = 0
+--- Night = 1
+---|"Day/Night"
+---|"Date"
+---|"Time"
+---|"Led Intensity"
+---|"Retention Tank Water Level Low"
+
+---@alias GROUP_ADDRESS_NAME_Scene
+---|"Scene Lower Floor"
+---|"Scene Lower Floor Hallway"
+---|"Scene Lower Floor Bathroom"
+---|"Scene Lower Floor Laundry"
+---|"Scene Lower Floor Bedroom 1"
+---|"Scene Lower Floor Study"
+---|"Scene Lower Floor Bedroom 2"
+---|"Scene Lower Floor Technical Room"
+---|"Scene Upper Floor"
+---|"Scene Upper Floor Hallway"
+---|"Scene Upper Floor Bathroom"
+---|"Scene Upper Floor Bedroom"
+---|"Scene Upper Floor Closet"
+---|"Scene Upper Floor Living Room"
+---|"Scene Upper Floor Office"
+---|"Scene Upper Floor Dining Room"
+---|"Scene Upper Floor Kitchen"
+---|"Scene Upper Floor Pantry"
+---|"Scene Staircase"
+---|"Scene Ventilation Valves"
+---|"Scene Ventilation Work"
+
+---@alias GROUP_ADDRESS_NAME_Switch
+--- Hallway Primary
+---|"Switch LF Hallway"
+--- Hallway Under staircase
+---|"Switch LF Hallway CTRL"
+--- Hallway Primary
+---|"Switch LF Hallway Light 1"
+--- Hallway Primary
+---|"Switch LF Hallway Light 2"
+--- Hallway Under staircase
+---|"Switch LF Hallway Light Below staircase"
+--- Hallway Primary
+---|"Switch LF Hallway FB"
+--- Hallway Under staircase
+---|"Switch LF Hallway CTRL FB"
+--- Hallway Primary
+---|"Switch LF Hallway Light 1 FB"
+--- Hallway Primary
+---|"Switch LF Hallway Light 2 FB"
+--- Hallway Under staircase
+---|"Switch LF Hallway Light Below staircase FB"
+--- Bathroom Primary
+---|"Switch LF Bathroom Primary"
+--- Bathroom Vanity
+---|"Switch LF Bathroom Primary CTRL"
+--- Bathroom Primary
+---|"Switch LF Bathroom Primary Light 1"
+--- Bathroom Primary
+---|"Switch LF Bathroom Primary Light 2"
+--- Bathroom Vanity
+---|"Switch LF Bathroom Primary Light Vanity"
+---|"Switch LF Bathroom Primary Ceiling"
+--- Bathroom Primary
+---|"Switch LF Bathroom Primary FB"
+--- Bathroom Vanity
+---|"Switch LF Bathroom Primary CTRL FB"
+--- Bathroom Primary
+---|"Switch LF Bathroom Primary Light 1 FB"
+--- Bathroom Primary
+---|"Switch LF Bathroom Primary Light 2 FB"
+--- Bathroom Vanity
+---|"Switch LF Bathroom Primary Light Vanity FB"
+--- Bathroom Ambient
+---|"Switch LF Bathroom Ambient"
+--- Bathroom Ambient
+---|"Switch LF Bathroom Ambient CTRL"
+--- Bathroom Ambient
+---|"Switch LF Bathroom Ambient Light 1"
+--- Bathroom Ambient
+---|"Switch LF Bathroom Ambient Light 2"
+--- Bathroom Ambient
+---|"Switch LF Bathroom Ambient Toilet"
+--- Bathroom Ambient
+---|"Switch LF Bathroom Ambient FB"
+--- Bathroom Ambient
+---|"Switch LF Bathroom Ambient CTRL FB"
+--- Bathroom Ambient
+---|"Switch LF Bathroom Ambient Light 1 FB"
+--- Bathroom Ambient
+---|"Switch LF Bathroom Ambient Light 2 FB"
+--- Bathroom Ambient
+---|"Switch LF Bathroom Ambient Toilet FB"
+--- Laundry Primary
+---|"Switch LF Laundry Primary"
+--- Laundry Primary
+---|"Switch LF Laundry Primary CTRL"
+--- Laundry Primary
+---|"Switch LF Laundry Primary Light 1"
+--- Laundry Primary
+---|"Switch LF Laundry Primary Light 2"
+--- Laundry Primary
+---|"Switch LF Laundry Primary FB"
+--- Laundry Primary
+---|"Switch LF Laundry Primary CTRL FB"
+--- Laundry Primary
+---|"Switch LF Laundry Primary Light 1 FB"
+--- Laundry Primary
+---|"Switch LF Laundry Primary Light 2 FB"
+--- Bedroom 1 Primary
+---|"Switch LF Bedroom 1 Primary"
+--- Bedroom 1 Reading light
+---|"Switch LF Bedroom 1 Primary CTRL"
+--- Bedroom 1 Primary
+---|"Switch LF Bedroom 1 Primary Light 1"
+--- Bedroom 1 Primary
+---|"Switch LF Bedroom 1 Primary Light 2"
+--- Bedroom 1 Reading light
+---|"Switch LF Bedroom 1 Primary Light Reading"
+--- Bedroom 1 Primary
+---|"Switch LF Bedroom 1 Primary FB"
+---|"Switch LF Bedroom 1 Primary CTRL FB"
+--- Bedroom 1 Primary
+---|"Switch LF Bedroom 1 Primary Light 1 FB"
+--- Bedroom 1 Primary
+---|"Switch LF Bedroom 1 Primary Light 2 FB"
+--- Bedroom 1 Reading light
+---|"Switch LF Bedroom 1 Primary Light Reading FB"
+--- Bedroom 1 Ambient
+---|"Switch LF Bedroom 1 Ambient"
+--- Bedroom 1 Ambient
+---|"Switch LF Bedroom 1 Ambient CTRL"
+--- Bedroom 1 Ambient
+---|"Switch LF Bedroom 1 Ambient Light 1"
+--- Bedroom 1 Ambient
+---|"Switch LF Bedroom 1 Ambient Light 2"
+--- Bedroom 1 Ambient
+---|"Switch LF Bedroom 1 Ambient FB"
+--- Bedroom 1 Ambient
+---|"Switch LF Bedroom 1 Ambient CTRL FB"
+--- Bedroom 1 Ambient
+---|"Switch LF Bedroom 1 Ambient Light 1 FB"
+--- Bedroom 1 Ambient
+---|"Switch LF Bedroom 1 Ambient Light 2 FB"
+--- Study Primary
+---|"Switch LF Study Primary"
+--- Study Primary
+---|"Switch LF Study Primary CTRL"
+--- Study Primary
+---|"Switch LF Study Primary Light 1"
+--- Study Primary
+---|"Switch LF Study Primary Light 2"
+--- Study Primary
+---|"Switch LF Study Primary FB"
+--- Study Primary
+---|"Switch LF Study Primary CTRL FB"
+--- Study Primary
+---|"Switch LF Study Primary Light 1 FB"
+--- Study Primary
+---|"Switch LF Study Primary Light 2 FB"
+--- Study Ambient
+---|"Switch LF Study Ambient"
+--- Study Ambient
+---|"Switch LF Study Ambient CTRL"
+--- Study Ambient
+---|"Switch LF Study Ambient Light 1"
+--- Study Ambient
+---|"Switch LF Study Ambient Light 2"
+--- Study Ambient
+---|"Switch LF Study Ambient FB"
+--- Study Ambient
+---|"Switch LF Study Ambient CTRL FB"
+--- Study Ambient
+---|"Switch LF Study Ambient Light 1 FB"
+--- Study Ambient
+---|"Switch LF Study Ambient Light 2 FB"
+--- Bedroom 2 Primary
+---|"Switch LF Bedroom 2 Primary"
+--- Bedroom 2 Reading light
+---|"Switch LF Bedroom 2 Primary CTRL"
+--- Bedroom 2 Primary
+---|"Switch LF Bedroom 2 Primary Light 1"
+--- Bedroom 2 Primary
+---|"Switch LF Bedroom 2 Primary Light 2"
+--- Bedroom 2 Reading light
+---|"Switch LF Bedroom 2 Primary Light Reading"
+--- Bedroom 2 Primary
+---|"Switch LF Bedroom 2 Primary FB"
+--- Bedroom 2 Reading light
+---|"Switch LF Bedroom 2 Primary CTRL FB"
+--- Bedroom 2 Primary
+---|"Switch LF Bedroom 2 Primary Light 1 FB"
+--- Bedroom 2 Primary
+---|"Switch LF Bedroom 2 Primary Light 2 FB"
+--- Bedroom 2 Reading light
+---|"Switch LF Bedroom 2 Primary Light Reading FB"
+--- Bedroom 2 Ambient
+---|"Switch LF Bedroom 2 Ambient"
+--- Bedroom 2 Ambient
+---|"Switch LF Bedroom 2 Ambient CTRL"
+--- Bedroom 2 Ambient
+---|"Switch LF Bedroom 2 Ambient Light 1"
+--- Bedroom 2 Ambient
+---|"Switch LF Bedroom 2 Ambient Light 2"
+--- Bedroom 2 Ambient
+---|"Switch LF Bedroom 2 Ambient FB"
+--- Bedroom 2 Ambient
+---|"Switch LF Bedroom 2 Ambient CTRL FB"
+--- Bedroom 2 Ambient
+---|"Switch LF Bedroom 2 Ambient Light 1 FB"
+--- Bedroom 2 Ambient
+---|"Switch LF Bedroom 2 Ambient Light 2 FB"
+---|"Switch LF Utility"
+---|"Switch LF Utility CTRL"
+---|"Switch LF Utility Light 1"
+---|"Switch LF Utility Counter"
+---|"Switch LF Utility FB"
+---|"Switch LF Utility CTRL FB"
+---|"Switch LF Utility Light 1 FB"
+---|"Switch LF Utility Counter FB"
+---|"Switch UF Hallway Entry"
+---|"Switch UF Hallway Isle"
+---|"Switch UF Hallway CTRL"
+---|"Switch UF Hallway Entry 1"
+---|"Switch UF Hallway Entry 2"
+---|"Switch UF Hallway Isle 1"
+---|"Switch UF Hallway Isle 2"
+---|"Switch UF Hallway Entry FB"
+---|"Switch UF Hallway Isle FB"
+---|"Switch UF Hallway CTRL FB"
+---|"Switch UF Hallway Entry 1 FB"
+---|"Switch UF Hallway Entry 2 FB"
+---|"Switch UF Hallway Isle 1 FB"
+---|"Switch UF Hallway Isle 2 FB"
+---|"Switch UF Bathroom Primary"
+---|"Switch UF Bathroom Primary CTRL"
+---|"Switch UF Bathroom Primary Light 1"
+---|"Switch UF Bathroom Primary Light 2"
+---|"Switch UF Bathroom Primary Light Vanity"
+---|"Switch UF Bathroom Primary Ceiling"
+---|"Switch UF Bathroom Primary FB"
+---|"Switch UF Bathroom Primary CTRL FB"
+---|"Switch UF Bathroom Primary Light 1 FB"
+---|"Switch UF Bathroom Primary Light 2 FB"
+---|"Switch UF Bathroom Primary Light Vanity FB"
+---|"Switch UF Bathroom Vanity CTRL"
+---|"Switch UF Bathroom Vanity CTRL FB"
+---|"Switch UF Bathroom Ambient"
+---|"Switch UF Bathroom Ambient CTRL"
+---|"Switch UF Bathroom Ambient Light 1"
+---|"Switch UF Bathroom Ambient Light 2"
+---|"Switch UF Bathroom Ambient Toilet"
+---|"Switch UF Bathroom Ambient FB"
+---|"Switch UF Bathroom Ambient CTRL FB"
+---|"Switch UF Bathroom Ambient Light 1 FB"
+---|"Switch UF Bathroom Ambient Light 2 FB"
+---|"Switch UF Bathroom Ambient Toilet FB"
+---|"Switch UF Bedroom Primary"
+---|"Switch UF Bedroom Primary CTRL"
+---|"Switch UF Bedroom Primary Light 1"
+---|"Switch UF Bedroom Primary Light 2"
+---|"Switch UF Bedroom Primary Reading 1"
+---|"Switch UF Bedroom Primary Reading 2"
+---|"Switch UF Bedroom Primary FB"
+---|"Switch UF Bedroom Primary CTRL FB"
+---|"Switch UF Bedroom Primary Light 1 FB"
+---|"Switch UF Bedroom Primary Light 2 FB"
+---|"Switch UF Bedroom Primary Reading 1 FB"
+---|"Switch UF Bedroom Primary Reading 2 FB"
+---|"Switch UF Bedroom Ambient"
+---|"Switch UF Bedroom Ambient CTRL"
+---|"Switch UF Bedroom Ambient Light 1"
+---|"Switch UF Bedroom Ambient Light 2"
+---|"Switch UF Bedroom Ambient FB"
+---|"Switch UF Bedroom Ambient CTRL FB"
+---|"Switch UF Bedroom Ambient Light 1 FB"
+---|"Switch UF Bedroom Ambient Light 2 FB"
+---|"Switch UF Closet"
+---|"Switch UF Closet CTRL"
+---|"Switch UF Closet Light 1"
+---|"Switch UF Closet Light 2"
+---|"Switch UF Closet FB"
+---|"Switch UF Closet CTRL FB"
+---|"Switch UF Closet Light 1 FB"
+---|"Switch UF Closet Light 2 FB"
+---|"Switch UF Living room Primary"
+---|"Switch UF Living room Primary CTRL"
+---|"Switch UF Living room Primary Light 1"
+---|"Switch UF Living room Primary Light 2"
+---|"Switch UF Living room Primary Light 3"
+---|"Switch UF Living room Primary FB"
+---|"Switch UF Living room Primary CTRL FB"
+---|"Switch UF Living room Primary Light 1 FB"
+---|"Switch UF Living room Primary Light 2 FB"
+---|"Switch UF Living room Primary Light 3 FB"
+---|"Switch UF Living room Ambient"
+---|"Switch UF Living room Ambient CTRL"
+---|"Switch UF Living room Ambient Light 1"
+---|"Switch UF Living room Ambient Light 2"
+---|"Switch UF Living room Ambient FB"
+---|"Switch UF Living room Ambient CTRL FB"
+---|"Switch UF Living room Ambient Light 1 FB"
+---|"Switch UF Living room Ambient Light 2 FB"
+---|"Switch UF Office Primary"
+---|"Switch UF Office Primary CTRL"
+---|"Switch UF Office Primary Light 1"
+---|"Switch UF Office Primary Light 2"
+---|"Switch UF Office Primary FB"
+---|"Switch UF Office Primary CTRL FB"
+---|"Switch UF Office Primary Light 1 FB"
+---|"Switch UF Office Primary Light 2 FB"
+---|"Switch UF Dining room"
+---|"Switch UF Dining room CTRL"
+---|"Switch UF Dining room Light 1"
+---|"Switch UF Dining room Light 2"
+---|"Switch UF Dining room FB"
+---|"Switch UF Dining room CTRL FB"
+---|"Switch UF Dining room Light 1 FB"
+---|"Switch UF Dining room Light 2 FB"
+---|"Switch UF Kitchen Primary"
+---|"Switch UF Kitchen Primary CTRL"
+---|"Switch UF Kitchen Primary Light 1"
+---|"Switch UF Kitchen Primary Light 2"
+---|"Switch UF Kitchen Primary Light 3"
+---|"Switch UF Kitchen Primary FB"
+---|"Switch UF Kitchen Primary CTRL FB"
+---|"Switch UF Kitchen Primary Light 1 FB"
+---|"Switch UF Kitchen Primary Light 2 FB"
+---|"Switch UF Kitchen Primary Light 3 FB"
+---|"Switch UF Kitchen Ambient"
+---|"Switch UF Kitchen Ambient CTRL"
+---|"Switch UF Kitchen Ambient Light 1"
+---|"Switch UF Kitchen Ambient Light 2"
+---|"Switch UF Kitchen Ambient Light 3"
+---|"Switch UF Kitchen Ambient FB"
+---|"Switch UF Kitchen Ambient CTRL FB"
+---|"Switch UF Kitchen Ambient Light 1 FB"
+---|"Switch UF Kitchen Ambient Light 2 FB"
+---|"Switch UF Kitchen Ambient Light 3 FB"
+---|"Switch UF Kitchen Counter"
+---|"Switch UF Kitchen Counter CTRL"
+---|"Switch UF Kitchen Counter Light 1"
+---|"Switch UF Kitchen Counter Light 2"
+---|"Switch UF Kitchen Counter Light 3"
+---|"Switch UF Kitchen Counter FB"
+---|"Switch UF Kitchen Counter CTRL FB"
+---|"Switch UF Kitchen Counter Light 1 FB"
+---|"Switch UF Kitchen Counter Light 2 FB"
+---|"Switch UF Kitchen Counter Light 3 FB"
+---|"Switch UF Pantry"
+---|"Switch UF Pantry CTRL"
+---|"Switch UF Pantry Light 1"
+---|"Switch UF Pantry Light 2"
+---|"Switch UF Pantry FB"
+---|"Switch UF Pantry CTRL FB"
+---|"Switch UF Pantry Light 1 FB"
+---|"Switch UF Pantry Light 2 FB"
+---|"Switch Staircase"
+---|"Switch Staircase CTRL"
+--- Staircase Primary
+---|"Switch Staircase Tree"
+--- Staircase Primary
+---|"Switch Staircase Handrail"
+---|"Switch Staircase FB"
+---|"Switch Staircase CTRL FB"
+--- Staircase Primary
+---|"Switch Staircase Tree FB"
+--- Staircase Primary
+---|"Switch Staircase Handrail FB"
+--- 20_Garden Terrace
+---|"Switch EXT Terrace"
+--- 20_Garden Terrace
+---|"Switch EXT Terrace FB"
+--- 20_Exterior Entrance
+---|"Switch EXT Entrance"
+--- 20_Exterior Entrance
+---|"Switch EXT Entrance FB"
+--- Parking place Primary
+---|"Switch Parking place"
+--- Parking place Primary
+---|"Switch Parking place FB"
