@@ -6,3 +6,5 @@
 /.envrc
 
 /result
+
+/knx_group_addresses.csv
