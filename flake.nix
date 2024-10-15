@@ -57,6 +57,7 @@
 
                 npm version $TAG --allow-same-version=true --git-tag-version=false
                 git add package.json
+                git add package-lock.json
                 git commit -m "Update package to version $TAG"
                 git tag -a $TAG -m ""
                 [[ $OTP == "" ]] && npm publish --access public
