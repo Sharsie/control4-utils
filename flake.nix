@@ -36,6 +36,14 @@
               '';
             }
             {
+              name = "generate";
+              command = ''
+                ${nix.lib.cd_root}
+                rm -rf ./src/knx/gen
+                go run ./tools/knx-group-address-generator ./knx_group_addresses.csv ./src/knx/gen
+              '';
+            }
+            {
               name = "publish";
               command = ''
                 [[ $# -eq 0 ]] && echo "Please provide a tag as the first parameter" && exit 1
