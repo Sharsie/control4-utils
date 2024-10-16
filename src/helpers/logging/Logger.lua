@@ -18,6 +18,8 @@ do
 		local defaultLogLevel = "Error"
 		local defaultLogMode = "Off"
 
+		local disableRemotelogging = false
+
 		class.Levels = {
 			["Debug"] = "debug",
 			["Error"] = "error",
@@ -62,6 +64,10 @@ do
 			error = noop,
 			info = noop,
 		}
+
+		function class.DisableRemoteLogging()
+			disableRemotelogging = true
+		end
 
 		--- Sets the logging verbosity
 		---@param level "Debug"|"Info"
@@ -123,7 +129,7 @@ do
 				log.debug("[DEBUG] > " .. s)
 			end
 
-			if RemoteLogger then
+			if not disableRemotelogging and RemoteLogger then
 				local remoteCtx = ctx or {}
 				remoteCtx.source = "Logger"
 				RemoteLogger:Debug(s, remoteCtx)
@@ -140,7 +146,7 @@ do
 				log.error("[ERROR] > " .. s)
 			end
 
-			if RemoteLogger then
+			if not disableRemotelogging and RemoteLogger then
 				local remoteCtx = ctx or {}
 				remoteCtx.source = "Logger"
 				RemoteLogger:Error(s, remoteCtx)
@@ -157,7 +163,7 @@ do
 				log.info("[ INFO] > " .. s)
 			end
 
-			if RemoteLogger then
+			if not disableRemotelogging and RemoteLogger then
 				local remoteCtx = ctx or {}
 				remoteCtx.source = "Logger"
 				RemoteLogger:Info(s, remoteCtx)
