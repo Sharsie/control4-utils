@@ -22,7 +22,7 @@ local LOGGER_CONNECTION_BINDING_ID = 100
 
 ---@class RemoteLogger
 ---@field Setup fun(class: RemoteLogger, service_identifier: string): nil
----@field DecodeTypedPayload fun(class: RemoteLogger, payload: table<string,string>): REMOTE_LOGGER_PAYLOAD
+---@field DecodeUntypedPayload fun(class: RemoteLogger, payload: table<string,string>): REMOTE_LOGGER_PAYLOAD
 ---@field DecodeMetrics fun(class: RemoteLogger, payload: table<string,string>): {fields: table<string,METRIC_VALUE>, tags: table<string,METRIC_VALUE>}
 ---@field Debug LOG_FN
 ---@field Info LOG_FN
