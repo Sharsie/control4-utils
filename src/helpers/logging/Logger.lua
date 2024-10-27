@@ -1,12 +1,6 @@
 ---@alias LoggingFn fun(s: string): nil
 
 do
-	-- Store locally, overridden at the end of the script
-	local globalOverrides = {
-		OnPropertyChanged = OnPropertyChanged or function() end,
-		OnDriverLateInit = OnDriverLateInit or function() end,
-	}
-
 	Logger = (function()
 		local class = {}
 		class.__index = class
@@ -26,7 +20,7 @@ do
 			["Info"] = "info",
 		}
 
-		for _, k in pairs(class.Levels) do
+		for k, _ in pairs(class.Levels) do
 			logLevels = logLevels .. k .. ","
 		end
 
@@ -39,7 +33,7 @@ do
 			["Off"] = "off",
 		}
 
-		for _, k in pairs(class.Mode) do
+		for k, _ in pairs(class.Mode) do
 			logModes = logModes .. k .. ","
 		end
 
@@ -70,7 +64,7 @@ do
 		end
 
 		--- Sets the logging verbosity
-		---@param level "Debug"|"Info"
+		---@param level "Debug"|"Info"|"Error"
 		function class.SetLogLevel(level)
 			if class.Levels[level] == nil then
 				print(string.format("Invalid logging level requested: %s", level))
@@ -100,6 +94,7 @@ do
 				print(string.format("Invalid logging mode requested: %s", mode))
 				return
 			end
+
 			print("Setting log mode:" .. mode)
 			if mode == "Off" then
 				logFn = noop
@@ -194,7 +189,7 @@ do
 		end
 
 		---@param propName string
-		function class:OnPropertyChanged(propName)
+		function class.OnPropertyChanged(propName)
 			if propName == logLevelPropName then
 				Logger.SetLogLevel(Properties[logLevelPropName])
 			elseif propName == logModePropName then
@@ -202,23 +197,37 @@ do
 			end
 		end
 
-		function class:OnDriverLateInit()
-			Logger.SetLogLevel(Properties[logLevelPropName])
-			Logger.SetLoggingMode(Properties[logModePropName])
-			C4:UpdatePropertyList("Log Level", logLevels, defaultLogLevel)
-			C4:UpdatePropertyList("Log Mode", logModes, defaultLogMode)
+		function class.OnDriverLateInit()
+			local logLevel = Properties[logLevelPropName]
+			local logMode = Properties[logModePropName]
+
+			if not logLevel or logLevel == "" then
+				logLevel = defaultLogLevel
+
+			end
+			if not logMode or logMode == "" then
+				logMode = defaultLogMode
+			end
+
+			C4:UpdatePropertyList(logLevelPropName, logLevels, logLevel)
+			C4:UpdatePropertyList(logModePropName, logModes, logMode)
+
+			Logger.SetLogLevel(logLevel)
+			Logger.SetLoggingMode(logMode)
 		end
 
 		return class
 	end)()
 
-	OnDriverLateInit = function()
-		Logger:OnDriverLateInit()
-		globalOverrides.OnDriverLateInit()
+	if HookIntoOnDriverLateInit then
+		HookIntoOnDriverLateInit(Logger.OnDriverLateInit)
+	else
+		print("ERROR: HookIntoOnDriverLateInit is not loaded")
 	end
 
-	OnPropertyChanged = function(propName)
-		Logger:OnPropertyChanged(propName)
-		globalOverrides.OnPropertyChanged(propName)
+	if HookIntoOnPropertyChanged then
+		HookIntoOnPropertyChanged(Logger.OnPropertyChanged)
+	else
+		print("ERROR: HookIntoOnPropertyChanged is not loaded")
 	end
 end

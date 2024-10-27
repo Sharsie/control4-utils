@@ -1,7 +1,4 @@
 do
-	-- Store locally, overridden at the end of the script
-	local OneShotTimerOriginalOnDriverDestroyed = OnDriverDestroyed or function() end
-
 	---@type table<string,C4LuaTimer>
 	local timers = {}
 
@@ -11,11 +8,6 @@ do
 				timer:Cancel()
 			end
 			timers = {}
-		end,
-
-		OnDriverDestroyed = function()
-			OneShotTimer.ClearAll()
-			OneShotTimerOriginalOnDriverDestroyed()
 		end,
 
 		---@param nDelay number Numeric value in milliseconds which is the desired timer delay. This value must be greater than 0.
@@ -39,5 +31,9 @@ do
 		end,
 	}
 
-	OnDriverDestroyed = OneShotTimer.OnDriverDestroyed
+	if HookIntoOnDriverLateInit then
+		HookIntoOnDriverLateInit(OneShotTimer.ClearAll)
+	else
+		print("hook HookIntoOnDriverLateInit must be loaded")
+	end
 end
