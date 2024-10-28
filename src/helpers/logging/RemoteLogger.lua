@@ -180,7 +180,7 @@ RemoteLogger = (function()
 
 		for k, v in pairs(payload) do
 			if k:sub(1, REMOTE_LOGGER_CAST_KEY_PREFIX:len()) ~= REMOTE_LOGGER_CAST_KEY_PREFIX then
-				local castValue = payload[REMOTE_LOGGER_CAST_KEY_PREFIX + k]
+				local castValue = payload[REMOTE_LOGGER_CAST_KEY_PREFIX .. k]
 				if castValue == "" or castValue == nil then
 					-- performance
 					output[k] = v
