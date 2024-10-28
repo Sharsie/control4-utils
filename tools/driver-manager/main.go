@@ -84,7 +84,7 @@ func run() error {
 		return fmt.Errorf("error encoding json into file: %w", err)
 	}
 
-	return copyIcons(filepath.Join(filepath.Dir(packageJSONPath), "www"))
+	return copyIcons(filepath.Join(filepath.Dir(packageJSONPath), "src", "www"))
 }
 
 func copyIcons(dst string) error {
