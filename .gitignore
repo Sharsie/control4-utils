@@ -1,7 +1,10 @@
 /.vscode/
 
 /node_modules/
+/bin/*
+!/bin/driver-manager
 
+/.devenv/
 /.direnv/
 /.envrc
 
