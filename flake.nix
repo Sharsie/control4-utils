@@ -67,7 +67,7 @@
                   '';
                 };
 
-                build = {
+                tools-buils = {
                   exec = ''
                     nix build -Lv .#driver-manager
                     cp -f result/bin/driver-manager ./bin/driver-manager-${pkgs.system}
@@ -102,9 +102,6 @@
                     ${nix.lib.cd_root}
                     [[ $# -eq 0 ]] && echo "Please provide a tag as the first parameter" && exit 1
                     TAG=$1
-
-                    build
-
                     OTP=''${2:-}
 
                     ${nix.lib.cd_root}
@@ -116,6 +113,9 @@
                     git add package-lock.json
                     git commit -m "Update package to version $TAG"
                     git tag -a $TAG -m ""
+
+                    tools-buils
+
                     [[ $OTP == "" ]] && npm publish --access public
                     [[ $OTP != "" ]] && npm publish --access public --otp $OTP
 
