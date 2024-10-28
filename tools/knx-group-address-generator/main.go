@@ -15,7 +15,7 @@ import (
 func main() {
 	// This will be the input file path containing KNX group addresses
 	if len(os.Args) < 3 {
-		fmt.Println("Usage: go run ./ [input_file] [output_dir]")
+		fmt.Println("Usage: go run ./ [input_file] [output_dir]") //nolint:forbidigo // Cli needs to output info
 		os.Exit(1)
 	}
 
@@ -25,33 +25,33 @@ func main() {
 	// Open and read the input file
 	fileContent, err := os.ReadFile(os.Args[1])
 	if err != nil {
-		fmt.Printf("error reading file: %v\n", err)
+		fmt.Printf("error reading file: %v\n", err) //nolint:forbidigo // Cli needs to output info
 		os.Exit(1)
 	}
 
 	if _, err = os.ReadDir(outputDir); err != nil {
 		err = os.MkdirAll(outputDir, 0o750)
 		if err != nil {
-			fmt.Printf("error creating output dir: %v\n", err)
+			fmt.Printf("error creating output dir: %v\n", err) //nolint:forbidigo // Cli needs to output info
 			os.Exit(1)
 		}
 	}
 
 	ga, err := parseCSV(fileContent)
 	if err != nil {
-		fmt.Printf("error parsing csv: %v\n", err)
+		fmt.Printf("error parsing csv: %v\n", err) //nolint:forbidigo // Cli needs to output info
 		os.Exit(1)
 	}
 
 	gaOutput, err := generateGAs(ga)
 	if err != nil {
-		fmt.Printf("error generating GA creator: %v\n", err)
+		fmt.Printf("error generating GA creator: %v\n", err) //nolint:forbidigo // Cli needs to output info
 		os.Exit(1)
 	}
 
 	err = os.WriteFile(filepath.Join(outputDir, "createGroupAddresses.lua"), gaOutput, 0o644) //nolint:gosec // Group and others read is fine
 	if err != nil {
-		fmt.Printf("error writing GA creator at %q: %v\n", filepath.Join(outputDir, "createGroupAddresses.lua"), err)
+		fmt.Printf("error writing GA creator at %q: %v\n", filepath.Join(outputDir, "createGroupAddresses.lua"), err) //nolint:forbidigo // Cli needs to output info
 		os.Exit(1)
 	}
 
@@ -59,7 +59,7 @@ func main() {
 
 	err = os.WriteFile(filepath.Join(outputDir, "ADDRESSES.lua"), enumsOutput, 0o644) //nolint:gosec // Group and others read is fine
 	if err != nil {
-		fmt.Printf("error writing GA enums: %v\n", err)
+		fmt.Printf("error writing GA enums: %v\n", err) //nolint:forbidigo // Cli needs to output info
 		os.Exit(1)
 	}
 }
@@ -145,7 +145,7 @@ end
 func generateGAEnums(ga []GroupAddress) []byte {
 	kinds := map[string][]GroupAddress{}
 
-	header := bytes.NewBuffer([]byte("---@alias GROUP_ADDRESS_NAME"))
+	header := bytes.NewBufferString("---@alias GROUP_ADDRESS_NAME")
 
 	for _, g := range ga {
 		k := g.Kind.String()

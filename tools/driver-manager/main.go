@@ -17,8 +17,8 @@ var version string
 func main() {
 	err := run()
 	if err != nil {
-		fmt.Printf("driver-manager %s\n", version)
-		fmt.Println(err) //nolint:forbidigo // Cli needs to output info
+		fmt.Printf("driver-manager %s\n", version) //nolint:forbidigo // Cli needs to output info
+		fmt.Println(err)                           //nolint:forbidigo // Cli needs to output info
 		os.Exit(1)
 	}
 }
@@ -29,32 +29,32 @@ func run() error {
 		return errors.New("usage: driver-manager [input_package_json_file_path]")
 	}
 
-	packageJsonPath := os.Args[1]
+	packageJSONPath := filepath.Clean(os.Args[1])
 
 	// Open and read the input file
-	packageJsonFile, err := os.OpenFile(packageJsonPath, os.O_RDWR, 0o644)
+	packageJSONFile, err := os.OpenFile(packageJSONPath, os.O_RDWR, 0o644) //nolint:gosec // User should be able to provide arbitrary path
 	if err != nil {
 		return fmt.Errorf("error reading file: %w", err)
 	}
 
-	var pJson map[string]interface{}
-	dec := json.NewDecoder(packageJsonFile)
+	var pJSON map[string]interface{}
+	dec := json.NewDecoder(packageJSONFile)
 
-	err = dec.Decode(&pJson)
+	err = dec.Decode(&pJSON)
 	if err != nil {
 		return fmt.Errorf("error decoding file: %w", err)
 	}
 
-	if pJson["control4"] == nil {
-		pJson["control4"] = make(map[string]interface{}, 0)
+	if pJSON["control4"] == nil {
+		pJSON["control4"] = make(map[string]interface{}, 0)
 	}
 
-	if v, ok := pJson["control4"].(map[string]interface{}); ok {
+	if v, ok := pJSON["control4"].(map[string]interface{}); ok {
 		if v["icon"] == nil {
 			v["icon"] = make(map[string]interface{}, 0)
 		}
 
-		if i, ok := v["icon"].(map[string]interface{}); ok {
+		if i, iconOk := v["icon"].(map[string]interface{}); iconOk {
 			i["image_source"] = "c4z"
 			i["small"] = "icons/logo_16.png"
 			i["large"] = "icons/logo_32.png"
@@ -63,28 +63,28 @@ func run() error {
 
 		v["manufacturer"] = "C3C"
 
-		pJson["control4"] = v
+		pJSON["control4"] = v
 	}
 
-	err = packageJsonFile.Truncate(0)
+	err = packageJSONFile.Truncate(0)
 	if err != nil {
 		return fmt.Errorf("failed to truncate file: %w", err)
 	}
 
-	_, err = packageJsonFile.Seek(0, 0)
+	_, err = packageJSONFile.Seek(0, 0)
 	if err != nil {
 		return fmt.Errorf("failed to seek to the beginning of file: %w", err)
 	}
 
-	enc := json.NewEncoder(packageJsonFile)
+	enc := json.NewEncoder(packageJSONFile)
 	enc.SetIndent(" ", "  ")
 
-	err = enc.Encode(pJson)
+	err = enc.Encode(pJSON)
 	if err != nil {
 		return fmt.Errorf("error encoding json into file: %w", err)
 	}
 
-	return copyIcons(filepath.Join(filepath.Dir(packageJsonPath), "www"))
+	return copyIcons(filepath.Join(filepath.Dir(packageJSONPath), "www"))
 }
 
 func copyIcons(dst string) error {
@@ -93,13 +93,14 @@ func copyIcons(dst string) error {
 			return err
 		}
 
-		relPath := filepath.Join(dst, path)
+		relPath := filepath.Clean(filepath.Join(dst, path))
 
 		if d.IsDir() {
-			err = os.MkdirAll(relPath, 0o755)
+			err = os.MkdirAll(relPath, 0o750)
 			if err != nil {
 				return fmt.Errorf("failed to create icon dir %q: %w", path, err)
 			}
+
 			return nil
 		}
 
@@ -113,7 +114,6 @@ func copyIcons(dst string) error {
 			return fmt.Errorf("failed to open icon file %q: %w", path, err)
 		}
 
-		fmt.Printf("copying %q to %q\n", path, relPath)
 		_, err = io.Copy(f, src)
 		if err != nil {
 			return fmt.Errorf("failed to copy icon file %q: %w", path, err)
