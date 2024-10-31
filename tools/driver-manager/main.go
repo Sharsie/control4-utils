@@ -12,6 +12,9 @@ import (
 	"git.c3c.cz/c3c/control4-utils/tools/driver-manager/files"
 )
 
+// TODO make it nice
+// TODO provide a consistent way to inject utilities into driver implementations
+
 var version string
 
 func main() {
