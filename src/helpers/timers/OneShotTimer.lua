@@ -2,7 +2,7 @@ do
 	---@type table<string,C4LuaTimer>
 	local timers = {}
 
-	OneShotTimer = {
+	C3C.OneShotTimer = {
 		ClearAll = function()
 			for _, timer in pairs(timers) do
 				timer:Cancel()
@@ -32,7 +32,7 @@ do
 	}
 
 	if HookIntoOnDriverLateInit then
-		HookIntoOnDriverLateInit(OneShotTimer.ClearAll)
+		HookIntoOnDriverLateInit(C3C.OneShotTimer.ClearAll)
 	else
 		print("hook HookIntoOnDriverLateInit must be loaded")
 	end

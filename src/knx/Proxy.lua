@@ -1,4 +1,4 @@
-KNXProxy = (function()
+C3C.KNXProxy = (function()
 	local class = {
         -- TODO Binding  + autobinding
 		binding = 0,

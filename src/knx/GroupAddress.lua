@@ -19,7 +19,7 @@ GroupAddress = function(name, ga, dpt)
 	---@param v number
 	function class:Send(v)
 		class.Value = v
-		KNXProxy:SendToKNX(class.DPT, class.GA, class.Value)
+		C3C.KNXProxy:SendToKNX(class.DPT, class.GA, class.Value)
 	end
 
 	return class
@@ -37,7 +37,7 @@ Addresses = (function()
 	---@type {[string]: GroupAddress}
 	local watchedRegistry = {}
 
-	---@type {[GROUP_ADDRESS_NAME]: nil|fun(current: GroupAddress, newVal: number, prevVal: number?)}
+	---@type {[GROUP_ADDRESS_NAME]: nil|fun(current: GroupAddress, ctx: { newVal: number, prevVal: number?})}
 	local changedRegistry = {}
 
 	for _, v in pairs(CreateGroupAddresses()) do
@@ -83,19 +83,19 @@ Addresses = (function()
 	end
 
 	HookIntoOnDriverLateInit(function()
-		if not KNXProxy or not OneShotTimer then
+		if not C3C.KNXProxy or not C3C.OneShotTimer then
 			Logger.Error(
-				"KNXProxy or OneShotTimer is not defined",
+				"C3C.KNXProxy or C3C.OneShotTimer is not defined",
 				{ fn = "control4-utils.knx.GroupADdress HookIntoOnDriverLateInit" }
 			)
 			return
 		end
 
-		KNXProxy:SendToProxy("CLEAR_GROUP_ITEMS", { DEVICE_ID = C4:GetDeviceID() })
+		C3C.KNXProxy:SendToProxy("CLEAR_GROUP_ITEMS", { DEVICE_ID = C4:GetDeviceID() })
 
-		OneShotTimer.Add(3000, function()
+		C3C.OneShotTimer.Add(3000, function()
 			for _, g in pairs(watchedRegistry) do
-				KNXProxy:SendToProxy("ADD_GROUP_ITEM", {
+				C3C.KNXProxy:SendToProxy("ADD_GROUP_ITEM", {
 					GROUP_ADDRESS = g.GA,
 					DEVICE_ID = C4:GetDeviceID(),
 					PROPERTY = g.Name,
@@ -128,7 +128,7 @@ Addresses = (function()
 				val = "<NIL>"
 			end
 
-			RemoteLogger:Error(
+			C3C.RemoteLogger:Error(
 				"received invalid data from DATA_FROM_KNX, missing either group address or value is nil",
 				{
 					groupAddress = groupAddress,
@@ -141,7 +141,7 @@ Addresses = (function()
 		local ga = Addresses:GetByGA(groupAddress)
 
 		if ga == nil then
-			RemoteLogger:Error("received unknown group address from DATA_FROM_KNX", {
+			C3C.RemoteLogger:Error("received unknown group address from DATA_FROM_KNX", {
 				groupAddress = groupAddress,
 			})
 			return
@@ -151,7 +151,7 @@ Addresses = (function()
 		ga.Value = value
 
 		if changedRegistry[ga.GA] and prevValue ~= value then
-			changedRegistry[ga.GA](ga, value, prevValue)
+			changedRegistry[ga.GA](ga, { newVal = value, prevVal = prevValue })
 		end
 	end)
 

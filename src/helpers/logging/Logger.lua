@@ -124,10 +124,10 @@ do
 				log.debug("[DEBUG] > " .. s)
 			end
 
-			if not disableRemotelogging and RemoteLogger then
+			if not disableRemotelogging and C3C.RemoteLogger then
 				local remoteCtx = ctx or {}
 				remoteCtx.source = "Logger"
-				RemoteLogger:Debug(s, remoteCtx)
+				C3C.RemoteLogger:Debug(s, remoteCtx)
 			end
 		end
 
@@ -141,10 +141,10 @@ do
 				log.error("[ERROR] > " .. s)
 			end
 
-			if not disableRemotelogging and RemoteLogger then
+			if not disableRemotelogging and C3C.RemoteLogger then
 				local remoteCtx = ctx or {}
 				remoteCtx.source = "Logger"
-				RemoteLogger:Error(s, remoteCtx)
+				C3C.RemoteLogger:Error(s, remoteCtx)
 			end
 		end
 
@@ -158,10 +158,10 @@ do
 				log.info("[ INFO] > " .. s)
 			end
 
-			if not disableRemotelogging and RemoteLogger then
+			if not disableRemotelogging and C3C.RemoteLogger then
 				local remoteCtx = ctx or {}
 				remoteCtx.source = "Logger"
-				RemoteLogger:Info(s, remoteCtx)
+				C3C.RemoteLogger:Info(s, remoteCtx)
 			end
 		end
 
