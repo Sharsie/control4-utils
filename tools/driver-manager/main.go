@@ -15,13 +15,13 @@ import (
 // TODO make it nice
 // TODO provide a consistent way to inject utilities into driver implementations
 
-var version string
+var rev string
 
 func main() {
 	err := run()
 	if err != nil {
-		fmt.Printf("driver-manager %s\n", version) //nolint:forbidigo // Cli needs to output info
-		fmt.Println(err)                           //nolint:forbidigo // Cli needs to output info
+		fmt.Printf("driver-manager [%s]\n", rev) //nolint:forbidigo // Cli needs to output info
+		fmt.Println(err)                         //nolint:forbidigo // Cli needs to output info
 		os.Exit(1)
 	}
 }

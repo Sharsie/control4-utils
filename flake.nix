@@ -11,13 +11,13 @@
       packages = nix.lib.forAllSystems (
         pkgs:
         let
-          version = "rev-${self.shortRev or self.dirtyShortRev}";
+          rev = "rev-${self.shortRev or self.dirtyShortRev}";
         in
         {
           devenv-up = self.devShells.${pkgs.system}.default.config.procfileScript;
           devenv-test = self.devShells.${pkgs.system}.default.config.test;
           driver-manager = pkgs.buildGoModule {
-            inherit version;
+            inherit rev;
 
             pname = "driver-manager";
 
@@ -29,7 +29,7 @@
             ldflags = [
               "-s"
               "-w"
-              "-X main.version=${version}"
+              "-X main.rev=${rev}"
             ];
 
             vendorHash = null;
