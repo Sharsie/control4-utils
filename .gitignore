@@ -9,5 +9,6 @@
 /.envrc
 
 /result
+/result-*
 
 /knx_group_addresses.csv

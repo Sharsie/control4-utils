@@ -8,14 +8,18 @@ import (
 	"io"
 	"os"
 	"path/filepath"
+	"sort"
 	"strings"
 	"text/template"
 )
 
+var rev string
+
 func main() {
 	// This will be the input file path containing KNX group addresses
 	if len(os.Args) < 3 {
-		fmt.Println("Usage: go run ./ [input_file] [output_dir]") //nolint:forbidigo // Cli needs to output info
+		fmt.Printf("knx-group-address-generator [%s]\n", rev)    //nolint:forbidigo // Cli needs to output info
+		fmt.Printf("Usage: go run ./ [input_file] [output_dir]") //nolint:forbidigo // Cli needs to output info
 		os.Exit(1)
 	}
 
@@ -119,9 +123,9 @@ func parseCSV(content []byte) ([]GroupAddress, error) {
 func generateGAs(ga []GroupAddress) ([]byte, error) {
 	tpl, err := template.New("").Parse(`
 ---@return table<number,GroupAddress>
-function CreateGroupAddresses()
+function C3CKnxCreateGroupAddresses()
 	return { {{ range .GroupAddresses }}
-		GroupAddress("{{.}}", "{{.Address}}", "{{.DatapointType}}"),
+		C3C.GroupAddress("{{.}}", "{{.Address}}", "{{.DatapointType}}"),
 		{{- end }}
 	}
 end
@@ -143,24 +147,32 @@ end
 }
 
 func generateGAEnums(ga []GroupAddress) []byte {
-	kinds := map[string][]GroupAddress{}
+	gaByKind := map[string][]GroupAddress{}
 
-	header := bytes.NewBufferString("---@alias GROUP_ADDRESS_NAME")
+	header := bytes.NewBufferString("---@alias C3CKnxGroupAddressName")
+
+	kinds := make([]string, 0)
 
 	for _, g := range ga {
 		k := g.Kind.String()
 
-		if _, ok := kinds[k]; !ok {
-			kinds[k] = make([]GroupAddress, 0)
+		if _, ok := gaByKind[k]; !ok {
+			gaByKind[k] = make([]GroupAddress, 0)
+
+			kinds = append(kinds, k)
 		}
 
-		kinds[k] = append(kinds[k], g)
+		gaByKind[k] = append(gaByKind[k], g)
 	}
 
 	b := bytes.NewBuffer([]byte{})
 
-	for kind, GAs := range kinds {
-		k := "GROUP_ADDRESS_NAME_" + kind
+	sort.Strings(kinds)
+
+	for _, kind := range kinds {
+		GAs := gaByKind[kind]
+
+		k := "C3CKnxGroupAddressName" + kind
 
 		header.WriteByte('\n')
 		header.WriteString("---|" + k)
