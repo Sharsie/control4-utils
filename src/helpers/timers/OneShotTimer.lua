@@ -1,4 +1,9 @@
 do
+	if not C3C then
+		print("Control4Utils: ERROR LOADING src.helpers.timers.OneShotTimer, src/base.lua must be required first")
+		return
+	end
+
 	---@type table<string,C4LuaTimer>
 	local timers = {}
 
@@ -31,8 +36,8 @@ do
 		end,
 	}
 
-	if HookIntoOnDriverLateInit then
-		HookIntoOnDriverLateInit(C3C.OneShotTimer.ClearAll)
+	if C3C.HookIntoOnDriverLateInit then
+		C3C.HookIntoOnDriverLateInit(C3C.OneShotTimer.ClearAll)
 	else
 		print("hook HookIntoOnDriverLateInit must be loaded")
 	end

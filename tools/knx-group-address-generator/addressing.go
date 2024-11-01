@@ -22,7 +22,7 @@ var KindName = map[Kind]string{
 	1: "Switch",
 	2: "Dimmer",
 	3: "Heat",
-	4: "VENT",
+	4: "Vent",
 	5: "Scene",
 }
 

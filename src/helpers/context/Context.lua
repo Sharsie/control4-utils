@@ -1,5 +1,10 @@
 ---@alias Context table<string,string|number|boolean>
 do
+	if not C3C then
+		print("Control4Utils: ERROR LOADING src.helpers.context.Context, src.base must be required first")
+		return
+	end
+
 	C3C.Context = {
 		---@param parentCtx Context
 		---@param stack string?

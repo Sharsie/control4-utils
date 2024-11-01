@@ -1,5 +1,5 @@
 --- @see https://snap-one.github.io/docs-driverworks-knx/#knx-datapoint-type-overview
---- @alias DPT
+--- @alias C3CKnxDPT
 ---|"DPT_1"
 ---|"DPT_2"
 ---|"DPT_3"

@@ -1,35 +1,37 @@
----@alias GenericGroupAddressShape<T> { DPT: DPT, GA: string, Name: T, Value: number | nil }
+---@alias C3CKnxGenericGroupAddressShape<T> { DPT: C3CKnxDPT, GA: string, Name: T, Value: number | nil }
 
----@param name GROUP_ADDRESS_NAME
----@param ga string
----@param dpt DPT
-GroupAddress = function(name, ga, dpt)
-	---@class GroupAddress
-	---@field DPT DPT
-	---@field GA string
-	---@field Name GROUP_ADDRESS_NAME
-	---@field Value number|nil
-	local class = {
-		DPT = dpt,
-		GA = ga,
-		Name = name,
-		Value = nil,
-	}
-
-	---@param v number
-	function class:Send(v)
-		class.Value = v
-		C3C.KNXProxy:SendToKNX(class.DPT, class.GA, class.Value)
+do
+	if not C3C then
+		print("Control4Utils: ERROR LOADING src.knx.GroupAddress, src/base.lua must be required first")
+		return
 	end
 
-	return class
-end
+	---@param name C3CKnxGroupAddressName
+	---@param ga string
+	---@param dpt C3CKnxDPT
+	C3C.KnxGroupAddress = function(name, ga, dpt)
+		---@class GroupAddress
+		---@field DPT C3CKnxDPT
+		---@field GA string
+		---@field Name C3CKnxGroupAddressName
+		---@field Value number|nil
+		local class = {
+			DPT = dpt,
+			GA = ga,
+			Name = name,
+			Value = nil,
+		}
 
-Addresses = (function()
-	---@class Addresses
-	local class = {}
+		---@param v number
+		function class:Send(v)
+			class.Value = v
+			C3C.KnxProxy.Send(class.DPT, class.GA, class.Value)
+		end
 
-	---@type {[GROUP_ADDRESS_NAME]: GroupAddress}
+		return class
+	end
+
+	---@type {[C3CKnxGroupAddressName]: GroupAddress}
 	local namedRegistry = {}
 	---@type {[string]: GroupAddress|nil}
 	local addressedRegistry = {}
@@ -37,65 +39,67 @@ Addresses = (function()
 	---@type {[string]: GroupAddress}
 	local watchedRegistry = {}
 
-	---@type {[GROUP_ADDRESS_NAME]: nil|fun(current: GroupAddress, ctx: { newVal: number, prevVal: number?})}
+	---@type {[C3CKnxGroupAddressName]: nil|fun(current: GroupAddress, ctx: { newVal: number, prevVal: number?})}
 	local changedRegistry = {}
 
-	for _, v in pairs(CreateGroupAddresses()) do
+	for _, v in pairs(C3CKnxCreateGroupAddresses()) do
 		addressedRegistry[v.GA] = v
 		namedRegistry[v.Name] = v
 	end
 
-	---Get GroupAddress by name
-	---@param n GROUP_ADDRESS_NAME
-	---@return GroupAddress
-	function class:Get(n)
-		if namedRegistry[n] == nil then
-			Logger.Error(
-				"error accessing non existing group address name, this should never happen...never",
-				{ name = n }
-			)
-		end
-		return namedRegistry[n]
-	end
+	C3C.KnxAddresses = {
+		---Get GroupAddress by name
+		---@param n C3CKnxGroupAddressName
+		---@return GroupAddress
+		Get = function(n)
+			if namedRegistry[n] == nil then
+				C3C.Logger.Error(
+					"error accessing non existing group address name, this should never happen...never",
+					{ name = n }
+				)
+			end
+			return namedRegistry[n]
+		end,
 
-	---Get GroupAddress by address if defined
-	---@param ga string
-	---@return GroupAddress|nil
-	function class:GetByGA(ga)
-		return addressedRegistry[ga]
-	end
+		---Get GroupAddress by address if defined
+		---@param ga string
+		---@return GroupAddress|nil
+		GetByGA = function(ga)
+			return addressedRegistry[ga]
+		end,
 
-	---@param n GROUP_ADDRESS_NAME
-	---@param onValueChange nil|fun(current: GroupAddress, newVal: number, prevVal: number?)
-	function class:Watch(n, onValueChange)
-		if namedRegistry[n] == nil then
-			Logger.Error(
-				"error accessing non existing group address name to Listen, this should never happen...never",
-				{ name = n }
-			)
-		end
-		local g = namedRegistry[n]
-		watchedRegistry[g.GA] = g
+		---@param n C3CKnxGroupAddressName
+		---@param onValueChange nil|fun(current: GroupAddress, newVal: number, prevVal: number?)
+		Watch = function(n, onValueChange)
+			if namedRegistry[n] == nil then
+				C3C.Logger.Error(
+					"error accessing non existing group address name to Listen, this should never happen...never",
+					{ name = n }
+				)
+			end
+			local g = namedRegistry[n]
+			watchedRegistry[g.GA] = g
 
-		if onValueChange ~= nil then
-			changedRegistry[g.GA] = onValueChange
-		end
-	end
+			if onValueChange ~= nil then
+				changedRegistry[g.GA] = onValueChange
+			end
+		end,
+	}
 
-	HookIntoOnDriverLateInit(function()
-		if not C3C.KNXProxy or not C3C.OneShotTimer then
-			Logger.Error(
-				"C3C.KNXProxy or C3C.OneShotTimer is not defined",
+	C3C.HookIntoOnDriverLateInit(function()
+		if not C3C.KnxProxy or not C3C.OneShotTimer then
+			C3C.Logger.Error(
+				"C3C.KnxProxy or C3C.OneShotTimer is not defined",
 				{ fn = "control4-utils.knx.GroupADdress HookIntoOnDriverLateInit" }
 			)
 			return
 		end
 
-		C3C.KNXProxy:SendToProxy("CLEAR_GROUP_ITEMS", { DEVICE_ID = C4:GetDeviceID() })
+		C3C.KnxProxy.ClearGroupAddresses()
 
 		C3C.OneShotTimer.Add(3000, function()
 			for _, g in pairs(watchedRegistry) do
-				C3C.KNXProxy:SendToProxy("ADD_GROUP_ITEM", {
+				C3C.KnxProxy:SendToProxy("ADD_GROUP_ITEM", {
 					GROUP_ADDRESS = g.GA,
 					DEVICE_ID = C4:GetDeviceID(),
 					PROPERTY = g.Name,
@@ -105,9 +109,9 @@ Addresses = (function()
 		end, "GroupAddressAddGroupItemsToKnx")
 	end)
 
-	HookIntoExecuteCommand(function(strCommand, tParams)
+	C3C.HookIntoExecuteCommand(function(strCommand, tParams)
 		if not Trim then
-			Logger.Error(
+			C3C.Logger.Error(
 				"Trim function is not defined",
 				{ fn = "control4-utils.knx.GroupADdress HookIntoExecuteCommand" }
 			)
@@ -128,20 +132,17 @@ Addresses = (function()
 				val = "<NIL>"
 			end
 
-			C3C.RemoteLogger:Error(
-				"received invalid data from DATA_FROM_KNX, missing either group address or value is nil",
-				{
-					groupAddress = groupAddress,
-					value = val,
-				}
-			)
+			C3C.Logger.Error("received invalid data from DATA_FROM_KNX, missing either group address or value is nil", {
+				groupAddress = groupAddress,
+				value = val,
+			})
 			return
 		end
 
-		local ga = Addresses:GetByGA(groupAddress)
+		local ga = C3C.KnxAddresses.GetByGA(groupAddress)
 
 		if ga == nil then
-			C3C.RemoteLogger:Error("received unknown group address from DATA_FROM_KNX", {
+			C3C.Logger.Error("received unknown group address from DATA_FROM_KNX", {
 				groupAddress = groupAddress,
 			})
 			return
@@ -154,6 +155,4 @@ Addresses = (function()
 			changedRegistry[ga.GA](ga, { newVal = value, prevVal = prevValue })
 		end
 	end)
-
-	return class
-end)()
+end

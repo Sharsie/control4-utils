@@ -1,13 +1,17 @@
----@alias OnDriverLateInitCallback fun(strDIT: string)
+---@alias C3COnDriverLateInitCallback fun(strDIT: string)
 do
+    if not C3C then
+		print("Control4Utils: ERROR LOADING src.hooks.OnDriverLateInit, src/base.lua must be required first")
+		return
+	end
 	-- Stores global hook if already defined
 	local prevHook
 
-    ---@type OnDriverLateInitCallback[]
+    ---@type C3COnDriverLateInitCallback[]
     local hooks = {}
 
-    ---@param callback OnDriverLateInitCallback
-    HookIntoOnDriverLateInit = function(callback)
+    ---@param callback C3COnDriverLateInitCallback
+    C3C.HookIntoOnDriverLateInit = function(callback)
         table.insert(hooks, callback)
     end
 

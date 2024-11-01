@@ -1,12 +1,12 @@
----@alias GROUP_ADDRESS_NAME
----|GROUP_ADDRESS_NAME_Dimmer
----|GROUP_ADDRESS_NAME_Heat
----|GROUP_ADDRESS_NAME_VENT
----|GROUP_ADDRESS_NAME_Other
----|GROUP_ADDRESS_NAME_Scene
----|GROUP_ADDRESS_NAME_Switch
+---@alias C3CKnxGroupAddressName
+---|C3CKnxGroupAddressNameDimmer
+---|C3CKnxGroupAddressNameHeat
+---|C3CKnxGroupAddressNameOther
+---|C3CKnxGroupAddressNameScene
+---|C3CKnxGroupAddressNameSwitch
+---|C3CKnxGroupAddressNameVent
 
----@alias GROUP_ADDRESS_NAME_Dimmer
+---@alias C3CKnxGroupAddressNameDimmer
 --- Hallway Primary
 ---|"Dimmer LF Hallway"
 --- Hallway Primary
@@ -362,7 +362,7 @@
 --- HAS UNKNOWN DPT
 ---|"Dimmer Parking place Value Feedback"
 
----@alias GROUP_ADDRESS_NAME_Heat
+---@alias C3CKnxGroupAddressNameHeat
 ---|"Heat LF Hallway Temperature FB"
 ---|"Heat LF Bathroom Temperature FB"
 ---|"Heat LF Bathroom Ladder boost"
@@ -381,115 +381,7 @@
 ---|"Heat UF Living Room Temperature FB"
 ---|"Heat UF Kitchen Temperature FB"
 
----@alias GROUP_ADDRESS_NAME_VENT
---- HAS UNKNOWN DPT
----|"VENT LF PLACEHOLDER Hallway"
----|"VENT LF Hallway Valve IN"
----|"VENT LF Hallway Valve IN FB"
----|"VENT LF Bathroom CO2 FB"
----|"VENT LF Bathroom Humidity FB"
----|"VENT LF Bathroom boost"
----|"VENT LF Bathroom boost FB"
----|"VENT LF Bathroom Valve IN"
----|"VENT LF Bathroom Valve IN FB"
----|"VENT LF Bathroom Valve OUT"
----|"VENT LF Bathroom Valve OUT FB"
---- HAS UNKNOWN DPT
----|"VENT LF PLACEHOLDER Laundry"
----|"VENT LF Bedroom 1 CO2 FB"
----|"VENT LF Bedroom 1 Humidity FB"
----|"VENT LF Bedroom 1 Valve IN"
----|"VENT LF Bedroom 1 Valve IN FB"
----|"VENT LF Study CO2 FB"
----|"VENT LF Study Humidity FB"
----|"VENT LF Study Valve IN"
----|"VENT LF Study Valve IN FB"
----|"VENT LF Study Valve IN Lock"
----|"VENT LF Bedroom 2 CO2 FB"
----|"VENT LF Bedroom 2 Humidity FB"
----|"VENT LF Bedroom 2 Valve IN"
----|"VENT LF Bedroom 2 Valve IN FB"
---- HAS UNKNOWN DPT
----|"VENT LF Technical Room CO2 FB"
----|"VENT LF Technical Room Humidity FB"
----|"VENT LF Box Valve OUT"
----|"VENT LF Box Valve OUT FB"
----|"VENT LF Box Valve OUT Lock"
---- HAS UNKNOWN DPT
----|"VENT UF PLACEHOLDER Hallway"
----|"VENT UF Bathroom CO2 FB"
----|"VENT UF Bathroom Humidity FB"
----|"VENT UF Bathroom boost"
----|"VENT UF Bathroom boost FB"
----|"VENT UF Bathroom Valve IN"
----|"VENT UF Bathroom Valve IN FB"
----|"VENT UF Bathroom Valve IN Lock"
---- HAS UNKNOWN DPT
----|"VENT UF PLACEHOLDER Bedroom"
----|"VENT UF Bedroom Valve IN"
----|"VENT UF Bedroom Valve IN FB"
----|"VENT UF Bedroom Valve IN Lock"
----|"VENT UF Bedroom CO2 FB"
----|"VENT UF Bedroom Humidity FB"
----|"VENT UF Living Room CO2 FB"
----|"VENT UF Living Room Humidity FB"
----|"VENT UF Living Room Valve IN"
----|"VENT UF Living Room Valve IN FB"
---- HAS UNKNOWN DPT
----|"VENT UF PLACEHOLDER Office"
----|"VENT UF Office Valve IN"
----|"VENT UF Office Valve IN FB"
----|"VENT UF Bathroom Valve OUT"
----|"VENT UF Bathroom Valve OUT FB"
----|"VENT UF Bathroom Valve OUT Lock"
---- HAS UNKNOWN DPT
----|"VENT UF PLACEHOLDER Dining Room"
---- HAS UNKNOWN DPT
----|"VENT UF PLACEHOLDER Kitchen"
----|"VENT UF Kitchen Valve OUT"
----|"VENT UF Kitchen Valve OUT FB"
----|"VENT UF Kitchen CO2 FB"
----|"VENT UF Kitchen Humidity FB"
----|"VENT UF Kitchen TVOC FB"
----|"VENT UF Kitchen boost"
----|"VENT UF Kitchen boost FB"
----|"VENT UF Closet+Hallway Valve OUT"
----|"VENT UF Closet+Hallway Valve OUT FB"
----|"VENT UF Closet+Hallway Valve OUT Lock"
----|"VENT Airflow"
----|"VENT Standby FB"
----|"VENT Temperature: Supply"
----|"VENT Temperature: Outdoor"
----|"VENT Temperature: Extract"
----|"VENT Temperature: Exhaust"
----|"VENT Humidity: Supply"
----|"VENT Humidity: Outdoor"
----|"VENT Humidity: Extract"
----|"VENT Humidity: Exhaust"
----|"VENT Filter: Remaining (h)"
----|"VENT Filter: Replace"
----|"VENT Boost"
----|"VENT Boost FB"
----|"VENT Auto mode"
----|"VENT Auto mode FB"
----|"VENT Preset"
----|"VENT Preset FB"
----|"VENT Preset Away"
----|"VENT Preset Away FB"
----|"VENT Away function"
----|"VENT Away function FB"
----|"VENT Temperature profile mode"
----|"VENT Temperature profile mode FB"
----|"VENT Temperature profile"
----|"VENT Temperature profile FB"
----|"VENT Boost Time"
----|"VENT Boost Time FB"
----|"VENT External setpoint"
----|"VENT External setpoint FB"
----|"VENT Error"
----|"VENT Status"
-
----@alias GROUP_ADDRESS_NAME_Other
+---@alias C3CKnxGroupAddressNameOther
 ---|"Entry"
 ---|"Exit"
 ---|"Present"
@@ -503,7 +395,7 @@
 ---|"Led Intensity"
 ---|"Retention Tank Water Level Low"
 
----@alias GROUP_ADDRESS_NAME_Scene
+---@alias C3CKnxGroupAddressNameScene
 ---|"Scene Lower Floor"
 ---|"Scene Lower Floor Hallway"
 ---|"Scene Lower Floor Bathroom"
@@ -526,7 +418,7 @@
 ---|"Scene Ventilation Valves"
 ---|"Scene Ventilation Work"
 
----@alias GROUP_ADDRESS_NAME_Switch
+---@alias C3CKnxGroupAddressNameSwitch
 --- Hallway Primary
 ---|"Switch LF Hallway"
 --- Hallway Under staircase
@@ -876,3 +768,111 @@
 ---|"Switch Parking place"
 --- Parking place Primary
 ---|"Switch Parking place FB"
+
+---@alias C3CKnxGroupAddressNameVent
+--- HAS UNKNOWN DPT
+---|"Vent LF PLACEHOLDER Hallway"
+---|"Vent LF Hallway Valve IN"
+---|"Vent LF Hallway Valve IN FB"
+---|"Vent LF Bathroom CO2 FB"
+---|"Vent LF Bathroom Humidity FB"
+---|"Vent LF Bathroom boost"
+---|"Vent LF Bathroom boost FB"
+---|"Vent LF Bathroom Valve IN"
+---|"Vent LF Bathroom Valve IN FB"
+---|"Vent LF Bathroom Valve OUT"
+---|"Vent LF Bathroom Valve OUT FB"
+--- HAS UNKNOWN DPT
+---|"Vent LF PLACEHOLDER Laundry"
+---|"Vent LF Bedroom 1 CO2 FB"
+---|"Vent LF Bedroom 1 Humidity FB"
+---|"Vent LF Bedroom 1 Valve IN"
+---|"Vent LF Bedroom 1 Valve IN FB"
+---|"Vent LF Study CO2 FB"
+---|"Vent LF Study Humidity FB"
+---|"Vent LF Study Valve IN"
+---|"Vent LF Study Valve IN FB"
+---|"Vent LF Study Valve IN Lock"
+---|"Vent LF Bedroom 2 CO2 FB"
+---|"Vent LF Bedroom 2 Humidity FB"
+---|"Vent LF Bedroom 2 Valve IN"
+---|"Vent LF Bedroom 2 Valve IN FB"
+--- HAS UNKNOWN DPT
+---|"Vent LF Technical Room CO2 FB"
+---|"Vent LF Technical Room Humidity FB"
+---|"Vent LF Box Valve OUT"
+---|"Vent LF Box Valve OUT FB"
+---|"Vent LF Box Valve OUT Lock"
+--- HAS UNKNOWN DPT
+---|"Vent UF PLACEHOLDER Hallway"
+---|"Vent UF Bathroom CO2 FB"
+---|"Vent UF Bathroom Humidity FB"
+---|"Vent UF Bathroom boost"
+---|"Vent UF Bathroom boost FB"
+---|"Vent UF Bathroom Valve IN"
+---|"Vent UF Bathroom Valve IN FB"
+---|"Vent UF Bathroom Valve IN Lock"
+--- HAS UNKNOWN DPT
+---|"Vent UF PLACEHOLDER Bedroom"
+---|"Vent UF Bedroom Valve IN"
+---|"Vent UF Bedroom Valve IN FB"
+---|"Vent UF Bedroom Valve IN Lock"
+---|"Vent UF Bedroom CO2 FB"
+---|"Vent UF Bedroom Humidity FB"
+---|"Vent UF Living Room CO2 FB"
+---|"Vent UF Living Room Humidity FB"
+---|"Vent UF Living Room Valve IN"
+---|"Vent UF Living Room Valve IN FB"
+--- HAS UNKNOWN DPT
+---|"Vent UF PLACEHOLDER Office"
+---|"Vent UF Office Valve IN"
+---|"Vent UF Office Valve IN FB"
+---|"Vent UF Bathroom Valve OUT"
+---|"Vent UF Bathroom Valve OUT FB"
+---|"Vent UF Bathroom Valve OUT Lock"
+--- HAS UNKNOWN DPT
+---|"Vent UF PLACEHOLDER Dining Room"
+--- HAS UNKNOWN DPT
+---|"Vent UF PLACEHOLDER Kitchen"
+---|"Vent UF Kitchen Valve OUT"
+---|"Vent UF Kitchen Valve OUT FB"
+---|"Vent UF Kitchen CO2 FB"
+---|"Vent UF Kitchen Humidity FB"
+---|"Vent UF Kitchen TVOC FB"
+---|"Vent UF Kitchen boost"
+---|"Vent UF Kitchen boost FB"
+---|"Vent UF Closet+Hallway Valve OUT"
+---|"Vent UF Closet+Hallway Valve OUT FB"
+---|"Vent UF Closet+Hallway Valve OUT Lock"
+---|"Vent Airflow"
+---|"Vent Standby FB"
+---|"Vent Temperature: Supply"
+---|"Vent Temperature: Outdoor"
+---|"Vent Temperature: Extract"
+---|"Vent Temperature: Exhaust"
+---|"Vent Humidity: Supply"
+---|"Vent Humidity: Outdoor"
+---|"Vent Humidity: Extract"
+---|"Vent Humidity: Exhaust"
+---|"Vent Filter: Remaining (h)"
+---|"Vent Filter: Replace"
+---|"Vent Boost"
+---|"Vent Boost FB"
+---|"Vent Auto mode"
+---|"Vent Auto mode FB"
+---|"Vent Preset"
+---|"Vent Preset FB"
+---|"Vent Preset Away"
+---|"Vent Preset Away FB"
+---|"Vent Away function"
+---|"Vent Away function FB"
+---|"Vent Temperature profile mode"
+---|"Vent Temperature profile mode FB"
+---|"Vent Temperature profile"
+---|"Vent Temperature profile FB"
+---|"Vent Boost Time"
+---|"Vent Boost Time FB"
+---|"Vent External setpoint"
+---|"Vent External setpoint FB"
+---|"Vent Error"
+---|"Vent Status"

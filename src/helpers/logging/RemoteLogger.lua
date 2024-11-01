@@ -11,177 +11,174 @@
 ---@alias METRIC_VALUE string|number|boolean
 ---@alias METRIC_PAYLOAD { metric: string, service_identifier: string, time_of_execution: number, [string]: METRIC_VALUE }
 
----@alias LOG_FN fun(class: RemoteLogger, message: string, context: REMOTE_LOGGER_PAYLOAD): boolean
----@alias METRIC_FN fun(class: RemoteLogger, metric: string, context: REMOTE_LOGGER_PAYLOAD): boolean
+---@alias LOG_FN fun(message: string, context: REMOTE_LOGGER_PAYLOAD): boolean
+---@alias METRIC_FN fun(metric: string, context: REMOTE_LOGGER_PAYLOAD): boolean
 
-REMOTE_LOGGER_CAST_KEY_PREFIX = "_cast_"
-REMOTE_LOGGER_TAG_KEY_PREFIX = "_tag_"
-REMOTE_LOGGER_FIELD_KEY_PREFIX = "_field_"
+C3CRemoteLoggerCastKeyPrefix = "_cast_"
+C3CRemoteLoggerTagKeyPrefix = "_tag_"
+C3CRemoteLoggerFieldKeyPrefix = "_field_"
 
 do
-	local LOGGER_CONNECTION_BINDING_ID = 100
+	if not C3C then
+		print("Control4Utils: ERROR LOADING src.helpers.logging.RemoteLogger, src/base.lua must be required first")
+		return
+	end
 
-	---@class RemoteLogger
-	---@field Setup fun(class: RemoteLogger, service_identifier: string): nil
-	---@field DecodeUntypedPayload fun(class: RemoteLogger, payload: table<string,string>): REMOTE_LOGGER_PAYLOAD
-	---@field DecodeMetrics fun(class: RemoteLogger, payload: table<string,string>): {fields: table<string,METRIC_VALUE>, tags: table<string,METRIC_VALUE>}
-	---@field Debug LOG_FN
-	---@field Info LOG_FN
-	---@field Warn LOG_FN
-	---@field Error LOG_FN
-	---@field AddMetric METRIC_FN
-	C3C.RemoteLogger = (function()
-		local class = {}
+	local LoggerConnectionBindingID = 100
 
-		-- service identifier
-		---@type string|nil
-		local SI = nil
+	-- service identifier
+	---@type string|nil
+	local SI = nil
 
-		---@param payload REMOTE_LOGGER_PAYLOAD
-		---@return table<string,string>
-		local encodeTypedPayload = function(payload)
-			---@type table<string,string>
-			local output = {}
-			local errorCtx = {
-				level = "ERROR",
-				message = "Service tried to encode data for remote logger",
-			}
-			local error = false
+	---@param payload REMOTE_LOGGER_PAYLOAD
+	---@return table<string,string>
+	local encodeTypedPayload = function(payload)
+		---@type table<string,string>
+		local output = {}
+		local errorCtx = {
+			level = "ERROR",
+			message = "Service tried to encode data for remote logger",
+		}
+		local error = false
 
-			for k, v in pairs(payload) do
-				if k:sub(1, REMOTE_LOGGER_CAST_KEY_PREFIX:len()) == REMOTE_LOGGER_CAST_KEY_PREFIX then
-					error = true
-					errorCtx["offending_key_" .. k] = k
-				end
+		for k, v in pairs(payload) do
+			if k:sub(1, C3CRemoteLoggerCastKeyPrefix:len()) == C3CRemoteLoggerCastKeyPrefix then
+				error = true
+				errorCtx["offending_key_" .. k] = k
+			end
 
-				local vType = type(v)
-				if vType ~= "nil" and vType ~= "number" and vType ~= "string" and vType ~= "boolean" then
-					output[k] = "invalid field value type " .. vType
-				else
-					output[k] = tostring(v)
-					if vType ~= "string" then
-						output[REMOTE_LOGGER_CAST_KEY_PREFIX .. k] = vType
-					end
+			local vType = type(v)
+			if vType ~= "nil" and vType ~= "number" and vType ~= "string" and vType ~= "boolean" then
+				output[k] = "invalid field value type " .. vType
+			else
+				output[k] = tostring(v)
+				if vType ~= "string" then
+					output[C3CRemoteLoggerCastKeyPrefix .. k] = vType
 				end
 			end
-
-			if error then
-				Logger.Error("Tried to remote log data with reserved context keys", errorCtx)
-			end
-
-			return output
 		end
 
-		---@param tags table<string,METRIC_VALUE>
-		---@param fields table<string,METRIC_VALUE>
-		---@return table<string,METRIC_VALUE>
-		local encodeMetrics = function(tags, fields)
-			---@type table<string,any>
-			local output = {}
-
-			for k, v in pairs(tags) do
-				output[REMOTE_LOGGER_TAG_KEY_PREFIX .. k] = v
-			end
-
-			for k, v in pairs(fields) do
-				output[REMOTE_LOGGER_FIELD_KEY_PREFIX .. k] = v
-			end
-
-			return output
+		if error then
+			C3C.Logger.Error("Tried to remote log data with reserved context keys", errorCtx)
 		end
 
-		---@param level LOG_LEVEL
-		---@param message string
-		---@param ctx REMOTE_LOGGER_PAYLOAD
-		---@return boolean
-		local sendLog = function(level, message, ctx)
-			if SI == nil then
-				Logger.Error("Tried to remote log without setting up service identifier, call RemoteLogger:Setup first")
-				return false
-			end
+		return output
+	end
 
-			---@type LOGGER_PAYLOAD
-			local payload = {
-				level = "ERROR",
-				message = "",
-				service_identifier = SI,
-				time_of_execution = C4:GetTime(),
-			}
+	---@param tags table<string,METRIC_VALUE>
+	---@param fields table<string,METRIC_VALUE>
+	---@return table<string,METRIC_VALUE>
+	local encodeMetrics = function(tags, fields)
+		---@type table<string,any>
+		local output = {}
 
-			if ctx.level ~= nil or ctx.message ~= nil or ctx.service_identifier ~= nil or ctx.time_of_execution ~= nil then
-				Logger.Error(
-					"Tried to remote log data with reserved context keys",
-					{ message = message, level = level, ctx = ctx }
-				)
-
-				payload.level = "ERROR"
-				payload.message = "Service tried to remote log, but used reserved keyword in the context value"
-
-				C4:SendToProxy(LOGGER_CONNECTION_BINDING_ID, "INSERT_LOG", payload, "NOTIFY")
-				return false
-			end
-
-			payload.level = level
-			payload.message = message
-
-			for k, v in pairs(ctx) do
-				payload[k] = v
-			end
-
-			C4:SendToProxy(LOGGER_CONNECTION_BINDING_ID, "INSERT_LOG", encodeTypedPayload(payload), "NOTIFY")
-
-			return true
+		for k, v in pairs(tags) do
+			output[C3CRemoteLoggerTagKeyPrefix .. k] = v
 		end
 
-		---@param metric string
-		---@param tags table<string,METRIC_VALUE>
-		---@param fields table<string,METRIC_VALUE>
-		---@return boolean
-		local sendMetric = function(metric, tags, fields)
-			if SI == nil then
-				Logger.Error(
-					"Tried to add remote metric without setting up service identifier, call RemoteLogger:Setup first"
-				)
-				return false
-			end
-
-			---@type METRIC_PAYLOAD
-			local payload = {
-				metric = metric,
-				service_identifier = SI,
-				time_of_execution = C4:GetTime(),
-			}
-
-			if tags.service_identifier ~= nil or tags.time_of_execution ~= nil then
-				Logger.Error("Tried to add remote metric data with reserved tag keywords", { metric = metric, tags = tags })
-
-				payload.level = "ERROR"
-				payload.message = "Service tried to add remote metric, but used reserved tag keywords"
-
-				C4:SendToProxy(LOGGER_CONNECTION_BINDING_ID, "INSERT_LOG", payload, "NOTIFY")
-				return false
-			end
-
-			payload.metric = metric
-
-			for k, v in encodeMetrics(tags, fields) do
-				payload[k] = v
-			end
-
-			C4:SendToProxy(LOGGER_CONNECTION_BINDING_ID, "INSERT_METRIC", encodeTypedPayload(payload), "NOTIFY")
-
-			return true
+		for k, v in pairs(fields) do
+			output[C3CRemoteLoggerFieldKeyPrefix .. k] = v
 		end
 
+		return output
+	end
+
+	---@param level LOG_LEVEL
+	---@param message string
+	---@param ctx REMOTE_LOGGER_PAYLOAD
+	---@return boolean
+	local sendLog = function(level, message, ctx)
+		if SI == nil then
+			C3C.Logger.Error("Tried to remote log without setting up service identifier, call RemoteLogger.Setup first")
+			return false
+		end
+
+		---@type LOGGER_PAYLOAD
+		local payload = {
+			level = "ERROR",
+			message = "",
+			service_identifier = SI,
+			time_of_execution = C4:GetTime(),
+		}
+
+		if ctx.level ~= nil or ctx.message ~= nil or ctx.service_identifier ~= nil or ctx.time_of_execution ~= nil then
+			C3C.Logger.Error(
+				"Tried to remote log data with reserved context keys",
+				{ message = message, level = level, ctx = ctx }
+			)
+
+			payload.level = "ERROR"
+			payload.message = "Service tried to remote log, but used reserved keyword in the context value"
+
+			C4:SendToProxy(LoggerConnectionBindingID, "INSERT_LOG", payload, "NOTIFY")
+			return false
+		end
+
+		payload.level = level
+		payload.message = message
+
+		for k, v in pairs(ctx) do
+			payload[k] = v
+		end
+
+		C4:SendToProxy(LoggerConnectionBindingID, "INSERT_LOG", encodeTypedPayload(payload), "NOTIFY")
+
+		return true
+	end
+
+	---@param metric string
+	---@param tags table<string,METRIC_VALUE>
+	---@param fields table<string,METRIC_VALUE>
+	---@return boolean
+	local sendMetric = function(metric, tags, fields)
+		if SI == nil then
+			C3C.Logger.Error(
+				"tried to add remote metric without setting up service identifier, call C3C.RemoteLogger.Setup first",
+				{
+					stack = "RemoteLogger.sendMetric",
+				}
+			)
+			return false
+		end
+
+		---@type METRIC_PAYLOAD
+		local payload = {
+			metric = metric,
+			service_identifier = SI,
+			time_of_execution = C4:GetTime(),
+		}
+
+		if tags.service_identifier ~= nil or tags.time_of_execution ~= nil then
+			C3C.Logger.Error("Tried to add remote metric data with reserved tag keywords", { metric = metric, tags = tags })
+
+			payload.level = "ERROR"
+			payload.message = "Service tried to add remote metric, but used reserved tag keywords"
+
+			C4:SendToProxy(LoggerConnectionBindingID, "INSERT_LOG", payload, "NOTIFY")
+			return false
+		end
+
+		payload.metric = metric
+
+		for k, v in encodeMetrics(tags, fields) do
+			payload[k] = v
+		end
+
+		C4:SendToProxy(LoggerConnectionBindingID, "INSERT_METRIC", encodeTypedPayload(payload), "NOTIFY")
+
+		return true
+	end
+
+	C3C.RemoteLogger = {
 		---@param payload table<string,string>
 		---@return REMOTE_LOGGER_PAYLOAD
-		function class:DecodeUntypedPayload(payload)
+		DecodeUntypedPayload = function(payload)
 			---@type REMOTE_LOGGER_PAYLOAD
 			local output = {}
 
 			for k, v in pairs(payload) do
-				if k:sub(1, REMOTE_LOGGER_CAST_KEY_PREFIX:len()) ~= REMOTE_LOGGER_CAST_KEY_PREFIX then
-					local castValue = payload[REMOTE_LOGGER_CAST_KEY_PREFIX .. k]
+				if k:sub(1, C3CRemoteLoggerCastKeyPrefix:len()) ~= C3CRemoteLoggerCastKeyPrefix then
+					local castValue = payload[C3CRemoteLoggerCastKeyPrefix .. k]
 					if castValue == "" or castValue == nil then
 						-- performance
 						output[k] = v
@@ -205,11 +202,11 @@ do
 			end
 
 			return output
-		end
+		end,
 
 		---@param payload table<string,METRIC_VALUE>
 		---@return {fields: table<string,METRIC_VALUE>, tags: table<string,METRIC_VALUE>}
-		function class:DecodeMetrics(payload)
+		DecodeMetrics = function(payload)
 			---@type {fields: table<string,METRIC_VALUE>, tags: table<string,METRIC_VALUE>}
 			local output = {
 				fields = {},
@@ -217,74 +214,80 @@ do
 			}
 
 			for k, v in pairs(payload) do
-				if k:sub(1, REMOTE_LOGGER_TAG_KEY_PREFIX:len()) == REMOTE_LOGGER_TAG_KEY_PREFIX then
-					output.tags[k:sub(REMOTE_LOGGER_TAG_KEY_PREFIX:len() + 1)] = v
-				elseif k:sub(1, REMOTE_LOGGER_FIELD_KEY_PREFIX:len()) == REMOTE_LOGGER_FIELD_KEY_PREFIX then
-					output.fields[k:sub(REMOTE_LOGGER_FIELD_KEY_PREFIX:len() + 1)] = v
+				if k:sub(1, C3CRemoteLoggerTagKeyPrefix:len()) == C3CRemoteLoggerTagKeyPrefix then
+					output.tags[k:sub(C3CRemoteLoggerTagKeyPrefix:len() + 1)] = v
+				elseif k:sub(1, C3CRemoteLoggerFieldKeyPrefix:len()) == C3CRemoteLoggerFieldKeyPrefix then
+					output.fields[k:sub(C3CRemoteLoggerFieldKeyPrefix:len() + 1)] = v
 				end
 			end
 
 			return output
-		end
+		end,
 
 		---@param service_identifier string
-		function class:Setup(service_identifier)
+		Setup = function(service_identifier)
 			SI = service_identifier
-			C4:AddDynamicBinding(LOGGER_CONNECTION_BINDING_ID, "CONTROL", false, "Logger", "c3c-remote-logger", false, true)
-		end
+			C4:AddDynamicBinding(
+				LoggerConnectionBindingID,
+				"CONTROL",
+				false,
+				"Logger",
+				"c3c-remote-logger",
+				false,
+				true
+			)
+		end,
 
 		---@type LOG_FN
-		function class:Debug(message, ctx)
+		Debug = function(message, ctx)
 			return sendLog("DEBUG", message, ctx)
-		end
+		end,
 
 		---@type LOG_FN
-		function class:Info(message, ctx)
+		Info = function(message, ctx)
 			return sendLog("INFO", message, ctx)
-		end
+		end,
 
 		---@type LOG_FN
-		function class:Warn(message, ctx)
+		Warn = function(message, ctx)
 			return sendLog("WARN", message, ctx)
-		end
+		end,
 
 		---@type LOG_FN
-		function class:Error(message, ctx)
+		Error = function(message, ctx)
 			return sendLog("ERROR", message, ctx)
-		end
+		end,
 
 		-- Example fields: humidity, temperature, co2
 		---@param sensorId string
 		---@param location string
 		---@param fields table<string,METRIC_VALUE>
-		function class:AirSensorMetric(sensorId, location, fields)
+		AirSensorMetric = function(sensorId, location, fields)
 			return sendMetric("air_sensor", {
 				sensor_id = sensorId,
 				location = location,
 			}, fields)
-		end
+		end,
 
 		-- Example kinds: water_level, door_open
 		-- Example fields: below_threshold, open
 		---@param sensorId string
 		---@param kind string
 		---@param fields table<string,METRIC_VALUE>
-		function class:StatusMetric(sensorId, kind, fields)
+		StatusMetric = function(sensorId, kind, fields)
 			return sendMetric("air_sensor", {
 				sensor_id = sensorId,
 				kind = kind,
 			}, fields)
-		end
+		end,
 
 		-- Example fields: airflow, boost, setpoint
 		---@param sensorId string
 		---@param fields table<string,METRIC_VALUE>
-		function class:VentilationMetric(sensorId, fields)
+		VentilationMetric = function(sensorId, fields)
 			return sendMetric("air_sensor", {
 				sensor_id = sensorId,
 			}, fields)
-		end
-
-		return class
-	end)()
+		end,
+	}
 end

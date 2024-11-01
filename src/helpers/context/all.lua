@@ -1,3 +1,3 @@
 local dirRequire = (...):match("(.-)[^%.%/]+$")
 
-require(dirRequire .. "context")
+require(dirRequire .. "Context")
