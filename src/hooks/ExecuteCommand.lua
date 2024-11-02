@@ -17,7 +17,7 @@ do
     end
 
 	---@param strCommand string
-    ---@table
+    ---@param tParams table
 	prevHook, ExecuteCommand = ExecuteCommand or function() end, function(strCommand, tParams)
         for _, callback in pairs(hooks) do
             callback(strCommand, tParams)
