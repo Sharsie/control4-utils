@@ -39,8 +39,8 @@ do
 	---@type {[string]: GroupAddress}
 	local watchedRegistry = {}
 
-	---@type {[C3CKnxGroupAddressName]: nil|fun(current: GroupAddress, ctx: { newVal: number, prevVal: number?})}
-	local changedRegistry = {}
+	---@type {[C3CKnxGroupAddressName]: nil|fun(current: GroupAddress, ctx: { newVal: number, prevVal: number?})[]}
+	local onChangeRegistry = {}
 
 	for _, v in pairs(C3CKnxCreateGroupAddresses()) do
 		addressedRegistry[v.GA] = v
@@ -77,11 +77,16 @@ do
 					{ name = n }
 				)
 			end
-			local g = namedRegistry[n]
-			watchedRegistry[g.GA] = g
+
+			local addr = namedRegistry[n]
+			watchedRegistry[addr.GA] = addr
 
 			if onValueChange ~= nil then
-				changedRegistry[g.GA] = onValueChange
+				if onChangeRegistry[addr.GA] == nil then
+					onChangeRegistry[addr.GA] = {}
+				end
+
+				table.insert(onChangeRegistry[addr.GA], onValueChange)
 			end
 		end,
 	}
@@ -139,20 +144,22 @@ do
 			return
 		end
 
-		local ga = C3C.KnxAddresses.GetByGA(groupAddress)
+		local addr = C3C.KnxAddresses.GetByGA(groupAddress)
 
-		if ga == nil then
+		if addr == nil then
 			C3C.Logger.Error("received unknown group address from DATA_FROM_KNX", {
 				groupAddress = groupAddress,
 			})
 			return
 		end
 
-		local prevValue = ga.Value
-		ga.Value = value
+		local prevValue = addr.Value
+		addr.Value = value
 
-		if changedRegistry[ga.GA] and prevValue ~= value then
-			changedRegistry[ga.GA](ga, { newVal = value, prevVal = prevValue })
+		if onChangeRegistry[addr.GA] and prevValue ~= value then
+			for _, callback in pairs(onChangeRegistry[addr.GA]) do
+				callback(addr, { newVal = value, prevVal = prevValue })
+			end
 		end
 	end)
 end
