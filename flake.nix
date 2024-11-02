@@ -141,6 +141,13 @@
                     '';
                   };
 
+                  github-push = {
+                    exec = ''
+                      b=$(git rev-parse --abbrev-ref HEAD)
+                      git push git@github.com:Sharsie/control4-utils.git "$b":"$b"
+                    '';
+                  };
+
                   publish = {
                     exec = ''
                       ${nix.lib.cd_root}
