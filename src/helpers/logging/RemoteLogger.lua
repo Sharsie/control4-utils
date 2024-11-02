@@ -149,7 +149,10 @@ do
 		}
 
 		if tags.service_identifier ~= nil or tags.time_of_execution ~= nil then
-			C3C.Logger.Error("Tried to add remote metric data with reserved tag keywords", { metric = metric, tags = tags })
+			C3C.Logger.Error(
+				"Tried to add remote metric data with reserved tag keywords",
+				{ metric = metric, tags = tags }
+			)
 
 			payload.level = "ERROR"
 			payload.message = "Service tried to add remote metric, but used reserved tag keywords"

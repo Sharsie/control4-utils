@@ -1,7 +1,6 @@
-
 ---@return table<number,GroupAddress>
 function C3CKnxCreateGroupAddresses()
-	return { 
+	return {
 		C3C.GroupAddress("Entry", "0/0/1", "DPT_1"),
 		C3C.GroupAddress("Exit", "0/0/2", "DPT_1"),
 		C3C.GroupAddress("Present", "0/0/3", "DPT_1"),
@@ -587,4 +586,3 @@ function C3CKnxCreateGroupAddresses()
 		C3C.GroupAddress("Vent Status", "4/7/201", "DPT_5"),
 	}
 end
-	

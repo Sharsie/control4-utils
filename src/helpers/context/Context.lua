@@ -10,15 +10,15 @@ do
 		---@param stack string?
 		---@return C3CContext
 		Attach = function(parentCtx, stack)
-            local ctx = {}
-            for k, v in pairs(parentCtx) do
-                if type(k) == "string" then
-                    local vt = type(v)
-                    if vt == "string" or vt == "number" or vt == "boolean" then
-                        ctx[k] = v
-                    end
-                end
-            end
+			local ctx = {}
+			for k, v in pairs(parentCtx) do
+				if type(k) == "string" then
+					local vt = type(v)
+					if vt == "string" or vt == "number" or vt == "boolean" then
+						ctx[k] = v
+					end
+				end
+			end
 
 			if not ctx.start then
 				ctx.start = C4:GetTime()
@@ -30,7 +30,7 @@ do
 				ctx.stack = ctx.stack .. " -> " .. stack
 			end
 
-            return ctx
+			return ctx
 		end,
 	}
 end

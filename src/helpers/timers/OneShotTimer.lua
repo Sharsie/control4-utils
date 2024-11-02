@@ -32,7 +32,6 @@ do
 
 				timers[Name] = timer
 			end
-
 		end,
 	}
 
