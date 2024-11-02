@@ -1,4 +1,4 @@
----@alias Context table<string,string|number|boolean>
+---@alias C3CContext table<string,string|number|boolean>
 do
 	if not C3C then
 		print("Control4Utils: ERROR LOADING src.helpers.context.Context, src.base must be required first")
@@ -6,9 +6,9 @@ do
 	end
 
 	C3C.Context = {
-		---@param parentCtx Context
+		---@param parentCtx C3CContext
 		---@param stack string?
-		---@return Context
+		---@return C3CContext
 		Attach = function(parentCtx, stack)
             local ctx = {}
             for k, v in pairs(parentCtx) do

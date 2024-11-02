@@ -1,4 +1,4 @@
----@alias LoggingFn fun(s: string): nil
+---@alias C3CLogFN fun(s: string): nil
 
 do
 	if not C3C then
@@ -53,7 +53,7 @@ do
 		logFn(s)
 	end
 
-	---@type {debug: LoggingFn, error: LoggingFn, info: LoggingFn}
+	---@type {debug: C3CLogFN, error: C3CLogFN, info: C3CLogFN}
 	local log = {
 		debug = noop,
 		error = noop,

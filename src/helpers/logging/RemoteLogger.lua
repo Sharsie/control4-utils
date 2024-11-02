@@ -1,18 +1,18 @@
----@alias LOG_LEVEL
+---@alias C3CLogLevel
 ---|"DEBUG"
 ---|"INFO"
 ---|"WARN"
 ---|"ERROR"
 
----@alias REMOTE_LOGGER_PAYLOAD table<string,string|boolean|number>
+---@alias C3CRemoteLoggerPayload table<string,string|boolean|number>
 
 --- time_of_execution in milliseconds, use C4:GetTime()
----@alias LOGGER_PAYLOAD { level: LOG_LEVEL, message: string, service_identifier: string, time_of_execution: number, [string]: string|number|boolean }
----@alias METRIC_VALUE string|number|boolean
----@alias METRIC_PAYLOAD { metric: string, service_identifier: string, time_of_execution: number, [string]: METRIC_VALUE }
+---@alias C3CLoggerPayload { level: C3CLogLevel, message: string, service_identifier: string, time_of_execution: number, [string]: string|number|boolean }
+---@alias C3CMetricValue string|number|boolean
+---@alias C3CMetricPayload { metric: string, service_identifier: string, time_of_execution: number, [string]: C3CMetricValue }
 
----@alias LOG_FN fun(message: string, context: REMOTE_LOGGER_PAYLOAD): boolean
----@alias METRIC_FN fun(metric: string, context: REMOTE_LOGGER_PAYLOAD): boolean
+---@alias C3CRemoteLogFN fun(message: string, context: C3CRemoteLoggerPayload): boolean
+---@alias C3CMetricFN fun(metric: string, context: C3CRemoteLoggerPayload): boolean
 
 C3CRemoteLoggerCastKeyPrefix = "_cast_"
 C3CRemoteLoggerTagKeyPrefix = "_tag_"
@@ -30,7 +30,7 @@ do
 	---@type string|nil
 	local SI = nil
 
-	---@param payload REMOTE_LOGGER_PAYLOAD
+	---@param payload C3CRemoteLoggerPayload
 	---@return table<string,string>
 	local encodeTypedPayload = function(payload)
 		---@type table<string,string>
@@ -65,9 +65,9 @@ do
 		return output
 	end
 
-	---@param tags table<string,METRIC_VALUE>
-	---@param fields table<string,METRIC_VALUE>
-	---@return table<string,METRIC_VALUE>
+	---@param tags table<string,C3CMetricValue>
+	---@param fields table<string,C3CMetricValue>
+	---@return table<string,C3CMetricValue>
 	local encodeMetrics = function(tags, fields)
 		---@type table<string,any>
 		local output = {}
@@ -83,9 +83,9 @@ do
 		return output
 	end
 
-	---@param level LOG_LEVEL
+	---@param level C3CLogLevel
 	---@param message string
-	---@param ctx REMOTE_LOGGER_PAYLOAD
+	---@param ctx C3CRemoteLoggerPayload
 	---@return boolean
 	local sendLog = function(level, message, ctx)
 		if SI == nil then
@@ -93,7 +93,7 @@ do
 			return false
 		end
 
-		---@type LOGGER_PAYLOAD
+		---@type C3CLoggerPayload
 		local payload = {
 			level = "ERROR",
 			message = "",
@@ -127,8 +127,8 @@ do
 	end
 
 	---@param metric string
-	---@param tags table<string,METRIC_VALUE>
-	---@param fields table<string,METRIC_VALUE>
+	---@param tags table<string,C3CMetricValue>
+	---@param fields table<string,C3CMetricValue>
 	---@return boolean
 	local sendMetric = function(metric, tags, fields)
 		if SI == nil then
@@ -141,7 +141,7 @@ do
 			return false
 		end
 
-		---@type METRIC_PAYLOAD
+		---@type C3CMetricPayload
 		local payload = {
 			metric = metric,
 			service_identifier = SI,
@@ -171,9 +171,9 @@ do
 
 	C3C.RemoteLogger = {
 		---@param payload table<string,string>
-		---@return REMOTE_LOGGER_PAYLOAD
+		---@return C3CRemoteLoggerPayload
 		DecodeUntypedPayload = function(payload)
-			---@type REMOTE_LOGGER_PAYLOAD
+			---@type C3CRemoteLoggerPayload
 			local output = {}
 
 			for k, v in pairs(payload) do
@@ -204,10 +204,10 @@ do
 			return output
 		end,
 
-		---@param payload table<string,METRIC_VALUE>
-		---@return {fields: table<string,METRIC_VALUE>, tags: table<string,METRIC_VALUE>}
+		---@param payload table<string,C3CMetricValue>
+		---@return {fields: table<string,C3CMetricValue>, tags: table<string,C3CMetricValue>}
 		DecodeMetrics = function(payload)
-			---@type {fields: table<string,METRIC_VALUE>, tags: table<string,METRIC_VALUE>}
+			---@type {fields: table<string,C3CMetricValue>, tags: table<string,C3CMetricValue>}
 			local output = {
 				fields = {},
 				tags = {},
@@ -238,22 +238,22 @@ do
 			)
 		end,
 
-		---@type LOG_FN
+		---@type C3CRemoteLogFN
 		Debug = function(message, ctx)
 			return sendLog("DEBUG", message, ctx)
 		end,
 
-		---@type LOG_FN
+		---@type C3CRemoteLogFN
 		Info = function(message, ctx)
 			return sendLog("INFO", message, ctx)
 		end,
 
-		---@type LOG_FN
+		---@type C3CRemoteLogFN
 		Warn = function(message, ctx)
 			return sendLog("WARN", message, ctx)
 		end,
 
-		---@type LOG_FN
+		---@type C3CRemoteLogFN
 		Error = function(message, ctx)
 			return sendLog("ERROR", message, ctx)
 		end,
@@ -261,7 +261,7 @@ do
 		-- Example fields: humidity, temperature, co2
 		---@param sensorId string
 		---@param location string
-		---@param fields table<string,METRIC_VALUE>
+		---@param fields table<string,C3CMetricValue>
 		AirSensorMetric = function(sensorId, location, fields)
 			return sendMetric("air_sensor", {
 				sensor_id = sensorId,
@@ -273,7 +273,7 @@ do
 		-- Example fields: below_threshold, open
 		---@param sensorId string
 		---@param kind string
-		---@param fields table<string,METRIC_VALUE>
+		---@param fields table<string,C3CMetricValue>
 		StatusMetric = function(sensorId, kind, fields)
 			return sendMetric("air_sensor", {
 				sensor_id = sensorId,
@@ -283,7 +283,7 @@ do
 
 		-- Example fields: airflow, boost, setpoint
 		---@param sensorId string
-		---@param fields table<string,METRIC_VALUE>
+		---@param fields table<string,C3CMetricValue>
 		VentilationMetric = function(sensorId, fields)
 			return sendMetric("air_sensor", {
 				sensor_id = sensorId,
