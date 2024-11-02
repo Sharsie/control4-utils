@@ -126,6 +126,7 @@
                       ${nix.lib.cd_root}
                       nix fmt ./*.nix
                       ${pkgs.golangci-lint}/bin/golangci-lint run --sort-results --out-format tab --config ${nix.lib.golangci-config-file} --fix --issues-exit-code 0 ./...
+                      stylua ./src
                     '';
                   };
 
