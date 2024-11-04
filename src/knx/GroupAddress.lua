@@ -104,12 +104,7 @@ do
 
 		C3C.OneShotTimer.Add(3000, function()
 			for _, g in pairs(watchedRegistry) do
-				C3C.KnxProxy:SendToProxy("ADD_GROUP_ITEM", {
-					GROUP_ADDRESS = g.GA,
-					DEVICE_ID = C4:GetDeviceID(),
-					PROPERTY = g.Name,
-					DATA_POINT_TYPE = g.DPT,
-				})
+				C3C.KnxProxy.AddGroupAddress(g)
 			end
 		end, "GroupAddressAddGroupItemsToKnx")
 	end)
