@@ -142,6 +142,7 @@
                   };
 
                   github-push = {
+                    description = "Push current branch to github, lazy workaround for automated mirror. TODO: Automate";
                     exec = ''
                       b=$(git rev-parse --abbrev-ref HEAD)
                       git push git@github.com:Sharsie/control4-utils.git "$b":"$b"
