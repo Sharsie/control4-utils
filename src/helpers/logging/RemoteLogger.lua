@@ -176,7 +176,7 @@ do
 
 		payload.metric = metric
 
-		for k, v in encodeMetrics(tags, fields) do
+		for k, v in pairs(encodeMetrics(tags, fields)) do
 			payload[k] = v
 		end
 
