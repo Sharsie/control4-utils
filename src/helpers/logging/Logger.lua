@@ -177,13 +177,19 @@ do
 		---@param s string
 		---@param ctx table|nil
 		Debug = function(s, ctx)
+			local disableRemote = disableRemotelogging
+			if ctx and ctx.disableRemoteLog == true then
+				disableRemote = true
+				ctx.disableRemoteLog = nil
+			end
+
 			if ctx ~= nil then
 				log.debug("[DEBUG] > " .. s .. " | CTX: " .. formatParams(ctx))
 			else
 				log.debug("[DEBUG] > " .. s)
 			end
 
-			if not disableRemotelogging and C3C.RemoteLogger then
+			if not disableRemote and C3C.RemoteLogger then
 				local remoteCtx = ctx or {}
 				remoteCtx.source = "Logger"
 				C3C.RemoteLogger.Debug(s, remoteCtx)
@@ -194,13 +200,19 @@ do
 		---@param s string
 		---@param ctx table|nil
 		Error = function(s, ctx)
+			local disableRemote = disableRemotelogging
+			if ctx and ctx.disableRemoteLog == true then
+				disableRemote = true
+				ctx.disableRemoteLog = nil
+			end
+
 			if ctx ~= nil then
 				log.error("[ERROR] > " .. s .. " | CTX: " .. formatParams(ctx))
 			else
 				log.error("[ERROR] > " .. s)
 			end
 
-			if not disableRemotelogging and C3C.RemoteLogger then
+			if not disableRemote and C3C.RemoteLogger then
 				local remoteCtx = ctx or {}
 				remoteCtx.source = "Logger"
 				C3C.RemoteLogger.Error(s, remoteCtx)
@@ -211,13 +223,19 @@ do
 		---@param s string
 		---@param ctx table|nil
 		Info = function(s, ctx)
+			local disableRemote = disableRemotelogging
+			if ctx and ctx.disableRemoteLog == true then
+				disableRemote = true
+				ctx.disableRemoteLog = nil
+			end
+
 			if ctx ~= nil then
 				log.info("[ INFO] > " .. s .. " | CTX: " .. formatParams(ctx))
 			else
 				log.info("[ INFO] > " .. s)
 			end
 
-			if not disableRemotelogging and C3C.RemoteLogger then
+			if not disableRemote and C3C.RemoteLogger then
 				local remoteCtx = ctx or {}
 				remoteCtx.source = "Logger"
 				C3C.RemoteLogger.Info(s, remoteCtx)

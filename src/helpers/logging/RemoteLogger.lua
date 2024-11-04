@@ -89,7 +89,15 @@ do
 	---@return boolean
 	local sendLog = function(level, message, ctx)
 		if SI == nil then
-			C3C.Logger.Error("Tried to remote log without setting up service identifier, call RemoteLogger.Setup first")
+			-- Make sure we do not loop
+			C3C.Logger.Error(
+				"Tried to remote log without setting up service identifier, call RemoteLogger.Setup first",
+				{
+
+					-- Make sure we do not loop
+					disableRemoteLog = true,
+				}
+			)
 			return false
 		end
 
@@ -102,10 +110,14 @@ do
 		}
 
 		if ctx.level ~= nil or ctx.message ~= nil or ctx.service_identifier ~= nil or ctx.time_of_execution ~= nil then
-			C3C.Logger.Error(
-				"Tried to remote log data with reserved context keys",
-				{ message = message, level = level, ctx = ctx }
-			)
+			C3C.Logger.Error("Tried to remote log data with reserved context keys", {
+
+				-- Make sure we do not loop
+				disableRemoteLog = true,
+				message = message,
+				level = level,
+				ctx = ctx,
+			})
 
 			payload.level = "ERROR"
 			payload.message = "Service tried to remote log, but used reserved keyword in the context value"
@@ -135,6 +147,7 @@ do
 			C3C.Logger.Error(
 				"tried to add remote metric without setting up service identifier, call C3C.RemoteLogger.Setup first",
 				{
+					disableRemoteLog = true,
 					stack = "RemoteLogger.sendMetric",
 				}
 			)
