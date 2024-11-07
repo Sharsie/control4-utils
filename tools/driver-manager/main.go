@@ -58,9 +58,15 @@ func run() error {
 		}
 
 		if i, iconOk := v["icon"].(map[string]interface{}); iconOk {
+			if _, hasSmall := i["small"]; !hasSmall {
+				i["small"] = "icons/logo_16.png"
+			}
+
+			if _, hasLarge := i["large"]; !hasLarge {
+				i["large"] = "icons/logo_32.png"
+			}
+
 			i["image_source"] = "c4z"
-			i["small"] = "icons/logo_16.png"
-			i["large"] = "icons/logo_32.png"
 			v["icon"] = i
 		}
 
