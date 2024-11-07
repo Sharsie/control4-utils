@@ -40,7 +40,10 @@ do
 	local watchedRegistry = {}
 
 	---@type {[C3CKnxGroupAddressName]: nil|fun(current: GroupAddress, ctx: { newVal: number, prevVal: number?})[]}
-	local onChangeRegistry = {}
+	local onChangedRegistry = {}
+
+	---@type {[C3CKnxGroupAddressName]: nil|fun(current: GroupAddress, ctx: { newVal: number, prevVal: number?})[]}
+	local onReceiveRegistry = {}
 
 	for _, v in pairs(C3CKnxCreateGroupAddresses()) do
 		addressedRegistry[v.GA] = v
@@ -69,8 +72,9 @@ do
 		end,
 
 		---@param n C3CKnxGroupAddressName
+		---@param onValueReceive nil|fun(current: GroupAddress, newVal: number, prevVal: number?)
 		---@param onValueChange nil|fun(current: GroupAddress, newVal: number, prevVal: number?)
-		Watch = function(n, onValueChange)
+		Watch = function(n, onValueReceive, onValueChange)
 			if namedRegistry[n] == nil then
 				C3C.Logger.Error(
 					"error accessing non existing group address name to Listen, this should never happen...never",
@@ -82,11 +86,19 @@ do
 			watchedRegistry[addr.GA] = addr
 
 			if onValueChange ~= nil then
-				if onChangeRegistry[addr.GA] == nil then
-					onChangeRegistry[addr.GA] = {}
+				if onReceiveRegistry[addr.GA] == nil then
+					onReceiveRegistry[addr.GA] = {}
 				end
 
-				table.insert(onChangeRegistry[addr.GA], onValueChange)
+				table.insert(onReceiveRegistry[addr.GA], onValueChange)
+			end
+
+			if onValueReceive ~= nil then
+				if onChangedRegistry[addr.GA] == nil then
+					onChangedRegistry[addr.GA] = {}
+				end
+
+				table.insert(onChangedRegistry[addr.GA], onValueReceive)
 			end
 		end,
 	}
@@ -151,8 +163,14 @@ do
 		local prevValue = addr.Value
 		addr.Value = value
 
-		if onChangeRegistry[addr.GA] and prevValue ~= value then
-			for _, callback in pairs(onChangeRegistry[addr.GA]) do
+		if onReceiveRegistry[addr.GA] and prevValue ~= value then
+			for _, callback in pairs(onReceiveRegistry[addr.GA]) do
+				callback(addr, { newVal = value, prevVal = prevValue })
+			end
+		end
+
+		if onChangedRegistry[addr.GA] then
+			for _, callback in pairs(onChangedRegistry[addr.GA]) do
 				callback(addr, { newVal = value, prevVal = prevValue })
 			end
 		end
