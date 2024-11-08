@@ -53,6 +53,11 @@ func run() error {
 	}
 
 	if v, ok := pJSON["control4"].(map[string]interface{}); ok {
+		if _, capOk := v["capabilities"]; !capOk {
+			// Required with new version of vscode plugin
+			v["capabilities"] = make(map[string]interface{}, 0)
+		}
+
 		if v["icon"] == nil {
 			v["icon"] = make(map[string]interface{}, 0)
 		}
