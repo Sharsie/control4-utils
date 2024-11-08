@@ -291,7 +291,7 @@ do
 		---@param kind string
 		---@param fields table<string,C3CMetricValue>
 		StatusMetric = function(sensorId, kind, fields)
-			return sendMetric("air_sensor", {
+			return sendMetric("status", {
 				sensor_id = sensorId,
 				kind = kind,
 			}, fields)
@@ -301,7 +301,7 @@ do
 		---@param sensorId string
 		---@param fields table<string,C3CMetricValue>
 		VentilationMetric = function(sensorId, fields)
-			return sendMetric("air_sensor", {
+			return sendMetric("ventilation", {
 				sensor_id = sensorId,
 			}, fields)
 		end,
