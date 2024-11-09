@@ -278,11 +278,21 @@ do
 		---@param sensorId string
 		---@param location string
 		---@param fields table<string,C3CMetricValue>
-		AirSensorMetric = function(sensorId, location, fields)
-			return sendMetric("air_sensor", {
+		---@param additionalTags nil|table<string,C3CMetricValue>
+		AirSensorMetric = function(sensorId, location, fields, additionalTags)
+			---@type table<string,C3CMetricValue>
+			local tags = {
 				sensor_id = sensorId,
 				location = location,
-			}, fields)
+			}
+
+			if additionalTags ~= nil then
+				for k, v in pairs(additionalTags) do
+					tags[k] = v
+				end
+			end
+
+			return sendMetric("air_sensor", tags, fields)
 		end,
 
 		-- Example kinds: water_level, door_open
@@ -290,20 +300,40 @@ do
 		---@param sensorId string
 		---@param kind string
 		---@param fields table<string,C3CMetricValue>
-		StatusMetric = function(sensorId, kind, fields)
-			return sendMetric("status", {
+		---@param additionalTags nil|table<string,C3CMetricValue>
+		StatusMetric = function(sensorId, kind, fields, additionalTags)
+			---@type table<string,C3CMetricValue>
+			local tags = {
 				sensor_id = sensorId,
 				kind = kind,
-			}, fields)
+			}
+
+			if additionalTags ~= nil then
+				for k, v in pairs(additionalTags) do
+					tags[k] = v
+				end
+			end
+
+			return sendMetric("status", tags, fields)
 		end,
 
 		-- Example fields: airflow, boost, setpoint
 		---@param sensorId string
 		---@param fields table<string,C3CMetricValue>
-		VentilationMetric = function(sensorId, fields)
-			return sendMetric("ventilation", {
+		---@param additionalTags nil|table<string,C3CMetricValue>
+		VentilationMetric = function(sensorId, fields, additionalTags)
+			---@type table<string,C3CMetricValue>
+			local tags = {
 				sensor_id = sensorId,
-			}, fields)
+			}
+
+			if additionalTags ~= nil then
+				for k, v in pairs(additionalTags) do
+					tags[k] = v
+				end
+			end
+
+			return sendMetric("ventilation", tags, fields)
 		end,
 	}
 end
