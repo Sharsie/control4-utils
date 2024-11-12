@@ -45,9 +45,9 @@ do
 			send("CLEAR_GROUP_ITEMS", { DEVICE_ID = C4:GetDeviceID() })
 		end,
 
-		--- @param dpt C3CKnxDPT
-		--- @param groupAddress string
-		--- @param value number
+		---@param dpt C3CKnxDPT
+		---@param groupAddress string
+		---@param value number
 		Send = function(dpt, groupAddress, value)
 			local tParams = {}
 			tParams.DATA_POINT_TYPE = dpt
@@ -55,6 +55,14 @@ do
 			tParams.VALUE = value
 
 			send("SEND_TO_KNX", tParams)
+		end,
+
+		---@param groupAddress string
+		Read = function(groupAddress)
+			local tParams = {}
+			tParams.GROUP_ADDRESS = groupAddress
+
+			send("REQUEST_STATUS", tParams)
 		end,
 	}
 end
