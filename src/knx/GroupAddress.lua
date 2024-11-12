@@ -85,20 +85,20 @@ do
 			local addr = namedRegistry[n]
 			watchedRegistry[addr.GA] = addr
 
-			if onValueChange ~= nil then
+			if onValueReceive ~= nil then
 				if onReceiveRegistry[addr.GA] == nil then
 					onReceiveRegistry[addr.GA] = {}
 				end
 
-				table.insert(onReceiveRegistry[addr.GA], onValueChange)
+				table.insert(onReceiveRegistry[addr.GA], onValueReceive)
 			end
 
-			if onValueReceive ~= nil then
+			if onValueChange ~= nil then
 				if onChangedRegistry[addr.GA] == nil then
 					onChangedRegistry[addr.GA] = {}
 				end
 
-				table.insert(onChangedRegistry[addr.GA], onValueReceive)
+				table.insert(onChangedRegistry[addr.GA], onValueChange)
 			end
 		end,
 	}
@@ -163,13 +163,13 @@ do
 		local prevValue = addr.Value
 		addr.Value = value
 
-		if onReceiveRegistry[addr.GA] and prevValue ~= value then
+		if onReceiveRegistry[addr.GA] then
 			for _, callback in pairs(onReceiveRegistry[addr.GA]) do
 				callback(addr, { newVal = value, prevVal = prevValue })
 			end
 		end
 
-		if onChangedRegistry[addr.GA] then
+		if onChangedRegistry[addr.GA] and prevValue ~= value then
 			for _, callback in pairs(onChangedRegistry[addr.GA]) do
 				callback(addr, { newVal = value, prevVal = prevValue })
 			end
