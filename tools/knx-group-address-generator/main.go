@@ -125,7 +125,7 @@ func generateGAs(ga []GroupAddress) ([]byte, error) {
 ---@return table<number,GroupAddress>
 function C3CKnxCreateGroupAddresses()
 	return { {{ range .GroupAddresses }}
-		C3C.GroupAddress("{{.}}", "{{.Address}}", "{{.DatapointType}}"),
+		C3C.KnxGroupAddress("{{.}}", "{{.Address}}", "{{.DatapointType}}"),
 		{{- end }}
 	}
 end
