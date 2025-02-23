@@ -107,6 +107,8 @@
                     exec = ''
                       nix build -Lv .#driver-manager --out-link result-driver-manager
                       cp -f result-driver-manager/bin/driver-manager ./bin/driver-manager-${pkgs.system}
+                      chmod +x ./bin/driver-manager
+                      chmod +x ./bin/driver-manager-${pkgs.system}
                       rm result-driver-manager
 
                       rm -f ${knxGroupAddressGeneratorPath}
