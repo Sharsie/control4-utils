@@ -387,7 +387,6 @@
 ---|"Present"
 ---|"UF Bathroom Exit"
 ---|"LF Bathroom Exit"
---- HAS UNKNOWN DPT
 ---|"NightTime"
 --- Day = 0
 --- Night = 1
