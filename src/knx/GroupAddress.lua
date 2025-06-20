@@ -22,10 +22,20 @@ do
 			Value = nil,
 		}
 
+		local responding = false
+
 		---@param v number
 		function class:Send(v)
 			class.Value = v
 			C3C.KnxProxy.Send(class.DPT, class.GA, class.Value)
+		end
+
+		function class:RespondToRead()
+			responding = true
+		end
+
+		function class:isResponding()
+			return responding
 		end
 
 		return class
@@ -128,6 +138,21 @@ do
 				{ fn = "control4-utils.knx.GroupADdress HookIntoExecuteCommand" }
 			)
 			return
+		end
+
+		if strCommand == "KNX_READ_REQUEST" then
+			local ga = Trim(tParams["GROUP_ADDRESS"])
+			if ga == "" then
+				C3C.Logger.Error("received invalid group address from KNX_READ_REQUEST", {
+					groupAddress = ga,
+				})
+				return
+			end
+
+			local addr = C3C.KnxAddresses.GetByGA(ga)
+			if addr ~= nil and addr.Value ~= nil and addr:isResponding() then
+				addr:Send(addr.Value)
+			end
 		end
 
 		if strCommand ~= "DATA_FROM_KNX" then
