@@ -160,18 +160,10 @@ do
 		end
 
 		local groupAddress = Trim(tParams["GROUP_ADDRESS"])
-		local value = tonumber(tParams["VALUE"])
 
-		if groupAddress == "" or not value then
-			---@type string|number?
-			local val = value
-			if not val then
-				val = "<NIL>"
-			end
-
-			C3C.Logger.Error("received invalid data from DATA_FROM_KNX, missing either group address or value is nil", {
-				groupAddress = groupAddress,
-				value = val,
+		if groupAddress == "" then
+			C3C.Logger.Error("received empty group address from DATA_FROM_KNX", {
+				params = tParams
 			})
 			return
 		end
@@ -181,6 +173,22 @@ do
 		if addr == nil then
 			C3C.Logger.Error("received unknown group address from DATA_FROM_KNX", {
 				groupAddress = groupAddress,
+			})
+			return
+		end
+
+		local value = nil
+
+		if addr.DPT == "DPT_3" then
+			local value = tonumber(tParams["DIRECTION"])
+		else
+			value = tonumber(tParams["VALUE"])
+		end
+
+		if value == nil then
+			C3C.Logger.Error("received invalid data from DATA_FROM_KNX, value is nil", {
+				groupAddress = groupAddress,
+				params = tParams,
 			})
 			return
 		end
