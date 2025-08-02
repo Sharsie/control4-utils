@@ -55,9 +55,22 @@ do
 	---@type {[C3CKnxGroupAddressName]: nil|fun(current: GroupAddress, ctx: { newVal: number, prevVal: number?})[]}
 	local onReceiveRegistry = {}
 
+	local registered = false
+
 	for _, v in pairs(C3CKnxCreateGroupAddresses()) do
 		addressedRegistry[v.GA] = v
 		namedRegistry[v.Name] = v
+	end
+
+	local registerGAs = function()
+		C3C.KnxProxy.ClearGroupAddresses()
+
+		C3C.OneShotTimer.Add(3000, function()
+			registered = true
+			for _, g in pairs(watchedRegistry) do
+				C3C.KnxProxy.AddGroupAddress(g)
+			end
+		end, "GroupAddressAddGroupItemsToKnx")
 	end
 
 	C3C.KnxAddresses = {
@@ -95,6 +108,12 @@ do
 			local addr = namedRegistry[n]
 			watchedRegistry[addr.GA] = addr
 
+			if registered then
+				C3C.OneShotTimer.Add(1000, function()
+					registerGAs()
+				end, "knx-register-group-addresses")
+			end
+
 			if onValueReceive ~= nil then
 				if onReceiveRegistry[addr.GA] == nil then
 					onReceiveRegistry[addr.GA] = {}
@@ -111,6 +130,20 @@ do
 				table.insert(onChangedRegistry[addr.GA], onValueChange)
 			end
 		end,
+
+		---@param n C3CKnxGroupAddressName
+		UnWatch = function(n)
+			local addr = namedRegistry[n]
+			watchedRegistry[addr.GA] = nil
+			onReceiveRegistry[addr.GA] = nil
+			onChangedRegistry[addr.GA] = nil
+
+			if registered then
+				C3C.OneShotTimer.Add(1000, function()
+					registerGAs()
+				end, "knx-register-group-addresses")
+			end
+		end,
 	}
 
 	C3C.HookIntoOnDriverLateInit(function()
@@ -122,13 +155,7 @@ do
 			return
 		end
 
-		C3C.KnxProxy.ClearGroupAddresses()
-
-		C3C.OneShotTimer.Add(3000, function()
-			for _, g in pairs(watchedRegistry) do
-				C3C.KnxProxy.AddGroupAddress(g)
-			end
-		end, "GroupAddressAddGroupItemsToKnx")
+		registerGAs()
 	end)
 
 	C3C.HookIntoExecuteCommand(function(strCommand, tParams)
