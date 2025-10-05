@@ -195,7 +195,6 @@
 ---|"Dimmer UF Bedroom Primary Color FB"
 ---|"Dimmer UF Bedroom Primary Color Dimming"
 --- Bedroom Ambient
---- HAS UNKNOWN DPT
 ---|"Dimmer UF Bedroom Ambient"
 --- Bedroom Ambient
 --- HAS UNKNOWN DPT
@@ -380,6 +379,23 @@
 ---|"Heat UF Bedroom Temperature FB"
 ---|"Heat UF Living Room Temperature FB"
 ---|"Heat UF Kitchen Temperature FB"
+---|"Heat Circulation Pump"
+---|"Heat Circulation Pump FB"
+---|"Heat Hot Water Circulation State"
+---|"Heat Hot Water Circulation Emergency State"
+---|"Heat Hot Water Circulation Control Value"
+--- Heating = 1
+--- Cooling = 0
+---|"Heat Heating-Cooling"
+--- Heating = 1
+--- Cooling = 0
+---|"Heat Heating-Cooling State"
+--- HAS UNKNOWN DPT
+---|"Heat Temperature Setpoint"
+--- HAS UNKNOWN DPT
+---|"Heat Temperature Setpoint State"
+---|"Heat UF+LF Heating Circulation Pump"
+---|"Heat UF+LF Heating Circulation Pump State"
 
 ---@alias C3CKnxGroupAddressNameOther
 ---|"Entry"
@@ -395,6 +411,13 @@
 ---|"Time"
 ---|"Led Intensity"
 ---|"Retention Tank Water Level Low"
+---|"Bathroom Playing"
+---|"Bathroom Off"
+---|"Bathroom Volume Down"
+---|"Bathroom Volume Up"
+---|"Bathroom Previous"
+---|"Bathroom Next"
+---|"Bathroom Preset Cycle Forward"
 
 ---@alias C3CKnxGroupAddressNameScene
 ---|"Scene Lower Floor"
@@ -416,6 +439,7 @@
 ---|"Scene Upper Floor Kitchen"
 ---|"Scene Upper Floor Pantry"
 ---|"Scene Staircase"
+---|"Scene Swimming Pool"
 ---|"Scene Ventilation Valves"
 ---|"Scene Ventilation Work"
 
@@ -769,6 +793,12 @@
 ---|"Switch Parking place"
 --- Parking place Primary
 ---|"Switch Parking place FB"
+---|"Switch Parking place AC Plug Right of Door"
+---|"Switch Parking place AC Plug Right of Door State"
+---|"Switch Underwater Light"
+---|"Switch Underwater Light FB"
+---|"Switch Filtration"
+---|"Switch Filtration FB"
 
 ---@alias C3CKnxGroupAddressNameVent
 --- HAS UNKNOWN DPT
