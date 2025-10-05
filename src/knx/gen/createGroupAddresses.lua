@@ -584,6 +584,8 @@ function C3CKnxCreateGroupAddresses()
 		C3C.KnxGroupAddress("Vent Humidity: Exhaust", "4/7/13", "DPT_9"),
 		C3C.KnxGroupAddress("Vent Filter: Remaining (h)", "4/7/25", "DPT_7"),
 		C3C.KnxGroupAddress("Vent Filter: Replace", "4/7/26", "DPT_1"),
+		C3C.KnxGroupAddress("Vent Heating-Cooling", "4/7/30", "DPT_1"),
+		C3C.KnxGroupAddress("Vent Heating-Cooling State", "4/7/31", "DPT_1"),
 		C3C.KnxGroupAddress("Vent Boost", "4/7/100", "DPT_1"),
 		C3C.KnxGroupAddress("Vent Boost FB", "4/7/101", "DPT_1"),
 		C3C.KnxGroupAddress("Vent Auto mode", "4/7/102", "DPT_1"),

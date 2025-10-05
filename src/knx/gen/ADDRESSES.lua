@@ -887,6 +887,8 @@
 ---|"Vent Humidity: Exhaust"
 ---|"Vent Filter: Remaining (h)"
 ---|"Vent Filter: Replace"
+---|"Vent Heating-Cooling"
+---|"Vent Heating-Cooling State"
 ---|"Vent Boost"
 ---|"Vent Boost FB"
 ---|"Vent Auto mode"
