@@ -394,6 +394,7 @@
 ---|"Heat Temperature Setpoint"
 --- HAS UNKNOWN DPT
 ---|"Heat Temperature Setpoint State"
+---|"Heat Heating Off lock"
 ---|"Heat UF+LF Heating Circulation Pump"
 ---|"Heat UF+LF Heating Circulation Pump State"
 
@@ -403,7 +404,6 @@
 ---|"Present"
 ---|"UF Bathroom Exit"
 ---|"LF Bathroom Exit"
----|"NightTime"
 --- Day = 0
 --- Night = 1
 ---|"Day/Night"
@@ -418,6 +418,12 @@
 ---|"Bathroom Previous"
 ---|"Bathroom Next"
 ---|"Bathroom Preset Cycle Forward"
+---|"Hallway Presence"
+---|"Hallway Presence Enable"
+---|"Hallway Presence Alarm"
+---|"Hallway Presence Alarm State"
+---|"LED Brightness Night"
+---|"Bathroom Brightness"
 
 ---@alias C3CKnxGroupAddressNameScene
 ---|"Scene Lower Floor"

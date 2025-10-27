@@ -7,7 +7,6 @@ function C3CKnxCreateGroupAddresses()
 		C3C.KnxGroupAddress("Present", "0/0/3", "DPT_1"),
 		C3C.KnxGroupAddress("UF Bathroom Exit", "0/0/50", "DPT_1"),
 		C3C.KnxGroupAddress("LF Bathroom Exit", "0/0/100", "DPT_1"),
-		C3C.KnxGroupAddress("NightTime", "0/0/150", "DPT_1"),
 		C3C.KnxGroupAddress("Day/Night", "0/1/0", "DPT_1"),
 		C3C.KnxGroupAddress("Date", "0/1/1", "DPT_11"),
 		C3C.KnxGroupAddress("Time", "0/1/2", "DPT_10"),
@@ -504,6 +503,7 @@ function C3CKnxCreateGroupAddresses()
 		C3C.KnxGroupAddress("Heat Heating-Cooling State", "3/7/1", "DPT_1"),
 		C3C.KnxGroupAddress("Heat Temperature Setpoint", "3/7/2", "DPT_1"),
 		C3C.KnxGroupAddress("Heat Temperature Setpoint State", "3/7/3", "DPT_1"),
+		C3C.KnxGroupAddress("Heat Heating Off lock", "3/7/4", "DPT_1"),
 		C3C.KnxGroupAddress("Heat UF+LF Heating Circulation Pump", "3/7/20", "DPT_1"),
 		C3C.KnxGroupAddress("Heat UF+LF Heating Circulation Pump State", "3/7/21", "DPT_1"),
 		C3C.KnxGroupAddress("Vent LF PLACEHOLDER Hallway", "4/0/0", "DPT_1"),
@@ -613,6 +613,12 @@ function C3CKnxCreateGroupAddresses()
 		C3C.KnxGroupAddress("Bathroom Previous", "5/1/105", "DPT_1"),
 		C3C.KnxGroupAddress("Bathroom Next", "5/1/106", "DPT_1"),
 		C3C.KnxGroupAddress("Bathroom Preset Cycle Forward", "5/1/107", "DPT_1"),
+		C3C.KnxGroupAddress("Hallway Presence", "6/0/0", "DPT_1"),
+		C3C.KnxGroupAddress("Hallway Presence Enable", "6/0/1", "DPT_1"),
+		C3C.KnxGroupAddress("Hallway Presence Alarm", "6/0/10", "DPT_1"),
+		C3C.KnxGroupAddress("Hallway Presence Alarm State", "6/0/11", "DPT_1"),
+		C3C.KnxGroupAddress("LED Brightness Night", "6/0/146", "DPT_5"),
+		C3C.KnxGroupAddress("Bathroom Brightness", "6/1/30", "DPT_9"),
 	}
 end
 	
