@@ -15,6 +15,8 @@ const (
 	KindHEATING
 	KindVENTILATION
 	KindSCENE
+	KindMEDIA
+	KindCONTROL
 )
 
 var KindName = map[Kind]string{
@@ -24,6 +26,8 @@ var KindName = map[Kind]string{
 	3: "Heat",
 	4: "Vent",
 	5: "Scene",
+	6: "Media",
+	7: "Control",
 }
 
 func (x Kind) String() string {
@@ -121,7 +125,7 @@ func parseName(source string, address *Address) Name {
 		Source: source,
 	}
 
-	if address.Main >= 1 && address.Main <= 4 {
+	if address.Main >= 1 && address.Main <= 6 {
 		switch address.Middle {
 		case 0:
 			name.Prefix = "LF "
@@ -153,6 +157,10 @@ func parseKind(address *Address) Kind {
 		return KindHEATING
 	case 4:
 		return KindVENTILATION
+	case 5:
+		return KindMEDIA
+	case 6:
+		return KindCONTROL
 	}
 
 	return KindUNKNOWN
