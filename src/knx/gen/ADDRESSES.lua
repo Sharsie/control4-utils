@@ -1,10 +1,23 @@
 ---@alias C3CKnxGroupAddressName
+---|C3CKnxGroupAddressNameControl
 ---|C3CKnxGroupAddressNameDimmer
 ---|C3CKnxGroupAddressNameHeat
+---|C3CKnxGroupAddressNameMedia
 ---|C3CKnxGroupAddressNameOther
 ---|C3CKnxGroupAddressNameScene
 ---|C3CKnxGroupAddressNameSwitch
 ---|C3CKnxGroupAddressNameVent
+
+---@alias C3CKnxGroupAddressNameControl
+---|"Control LF Hallway Presence"
+---|"Control LF Hallway Presence Enable"
+---|"Control LF Hallway Presence Enable Workaround"
+---|"Control LF Hallway Presence Alarm"
+---|"Control LF Hallway Presence Alarm State"
+---|"Control LF Study LED Brightness Night"
+---|"Control UF Bathroom Presence"
+---|"Control UF Bathroom Presence Enable"
+---|"Control UF Bathroom Brightness"
 
 ---@alias C3CKnxGroupAddressNameDimmer
 --- Hallway Primary
@@ -398,6 +411,15 @@
 ---|"Heat UF+LF Heating Circulation Pump"
 ---|"Heat UF+LF Heating Circulation Pump State"
 
+---@alias C3CKnxGroupAddressNameMedia
+---|"Media UF Bathroom Playing"
+---|"Media UF Bathroom Off"
+---|"Media UF Bathroom Volume Down"
+---|"Media UF Bathroom Volume Up"
+---|"Media UF Bathroom Previous"
+---|"Media UF Bathroom Next"
+---|"Media UF Bathroom Preset Cycle Forward"
+
 ---@alias C3CKnxGroupAddressNameOther
 ---|"Entry"
 ---|"Exit"
@@ -411,19 +433,6 @@
 ---|"Time"
 ---|"Led Intensity"
 ---|"Retention Tank Water Level Low"
----|"Bathroom Playing"
----|"Bathroom Off"
----|"Bathroom Volume Down"
----|"Bathroom Volume Up"
----|"Bathroom Previous"
----|"Bathroom Next"
----|"Bathroom Preset Cycle Forward"
----|"Hallway Presence"
----|"Hallway Presence Enable"
----|"Hallway Presence Alarm"
----|"Hallway Presence Alarm State"
----|"LED Brightness Night"
----|"Bathroom Brightness"
 
 ---@alias C3CKnxGroupAddressNameScene
 ---|"Scene Lower Floor"
