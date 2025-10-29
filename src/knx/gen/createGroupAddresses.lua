@@ -621,6 +621,7 @@ function C3CKnxCreateGroupAddresses()
 		C3C.KnxGroupAddress("Control LF Study LED Brightness Night", "6/0/146", "DPT_5"),
 		C3C.KnxGroupAddress("Control UF Bathroom Presence", "6/1/30", "DPT_1"),
 		C3C.KnxGroupAddress("Control UF Bathroom Presence Enable", "6/1/31", "DPT_1"),
+		C3C.KnxGroupAddress("Control UF Bathroom Presence Delayed", "6/1/32", "DPT_1"),
 		C3C.KnxGroupAddress("Control UF Bathroom Brightness", "6/1/35", "DPT_9"),
 	}
 end

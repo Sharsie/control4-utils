@@ -17,6 +17,7 @@
 ---|"Control LF Study LED Brightness Night"
 ---|"Control UF Bathroom Presence"
 ---|"Control UF Bathroom Presence Enable"
+---|"Control UF Bathroom Presence Delayed"
 ---|"Control UF Bathroom Brightness"
 
 ---@alias C3CKnxGroupAddressNameDimmer
