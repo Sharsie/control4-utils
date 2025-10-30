@@ -95,11 +95,11 @@ do
 		end,
 
 		---@param n C3CKnxGroupAddressName
-		---@param onValueReceive nil|fun(current: GroupAddress, newVal: number, prevVal: number?)
-		---@param onValueChange nil|fun(current: GroupAddress, newVal: number, prevVal: number?)
+		---@param onValueReceive nil|fun(current: GroupAddress, state: { newVal: number, prevVal: number? })
+		---@param onValueChange nil|fun(current: GroupAddress, state: { newVal: number, prevVal: number? })
 		Watch = function(n, onValueReceive, onValueChange)
 			if namedRegistry[n] == nil then
-				C3C.Logger.Error(
+				C3C.Logger.Error(W
 					"error accessing non existing group address name to Listen, this should never happen...never",
 					{ name = n }
 				)
