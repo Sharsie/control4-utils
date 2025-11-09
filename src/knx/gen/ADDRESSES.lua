@@ -12,6 +12,7 @@
 ---|"Control LF Hallway Presence"
 ---|"Control LF Hallway Presence Enable"
 ---|"Control LF Hallway Presence Enable Workaround"
+---|"Control LF Hallway Presence End"
 ---|"Control LF Hallway Presence Alarm"
 ---|"Control LF Hallway Presence Alarm State"
 ---|"Control LF Study LED Brightness Night"
@@ -581,6 +582,8 @@
 --- Study Primary
 ---|"Switch LF Study Primary Light 2"
 --- Study Primary
+---|"Switch LF Study Primary Light Table"
+--- Study Primary
 ---|"Switch LF Study Primary FB"
 --- Study Primary
 ---|"Switch LF Study Primary CTRL FB"
@@ -588,6 +591,8 @@
 ---|"Switch LF Study Primary Light 1 FB"
 --- Study Primary
 ---|"Switch LF Study Primary Light 2 FB"
+--- Study Primary
+---|"Switch LF Study Primary Light Table State"
 --- Study Ambient
 ---|"Switch LF Study Ambient"
 --- Study Ambient
